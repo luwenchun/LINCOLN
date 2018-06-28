@@ -1,0 +1,222 @@
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+.feto::-webkit-scrollbar  
+{  
+    width: 4px;  
+    height: 4px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.feto::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 1.5px rgba(0,0,0,0.3);  
+    border-radius: 2px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.feto::-webkit-scrollbar-thumb  
+{  
+    border-radius: 2px;  
+    -webkit-box-shadow: inset 0 0 1.5px rgba(0,0,0,.3);  
+    background-color: #C0C0C0;  
+}  
+
+.feto{
+    margin: 0 auto;
+    overflow-y: scroll;
+}
+
+.feto ul{
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+
+.feto ul li {
+    margin-bottom: 10px;
+    line-height: 1rem;
+    overflow: hidden;
+}
+
+.feto ul li h2 {
+    padding: 10px 0;
+    margin: 0;
+}
+
+.feto ul li:nth-child(2) {
+    overflow: hidden;
+}
+
+.feto ul li:nth-child(2) div {
+    line-height: 1rem;
+    float: left;
+}
+
+.feto ul li:nth-child(2) div:last-child {
+    line-height: 1rem;
+    float: right;
+    text-align: right;
+}
+
+.feto ul li:nth-child(2) div:last-child span:first-child {
+    color: white;
+    display: inline-block;
+    background: skyblue;
+    padding: 0 0.1rem;
+}
+
+.feto ul li:nth-child(2) div:last-child img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.feto ul li:nth-child(2) div:last-child span:last-child {
+    display: inline-block;
+    /* background-image: linear-gradient(-139deg, .FA7257 0%, .F94342 100%); */
+    padding: 0 5px 0 0;
+    text-align: center;
+    /* border-radius: 2px; */
+    font-size: 14px;
+    min-width: 30px;
+    vertical-align: middle;
+}
+
+.feto ul li:nth-child(2) div .masd span {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+    float: left;
+    margin-top: 0.2rem;
+    border-radius: 10px;
+    background: gray;
+}
+
+.feto ul li:nth-child(2) div .mas {
+    display: block;
+    color: black!important;
+    font-size: 14px;
+}
+
+.feto ul li:nth-child(2) div .mass {
+    float: left;
+}
+
+.feto ul li:nth-child(2) div .masd {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+.feto ul li:nth-child(2) div .masd img {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+.feto ul li:nth-child(2) div .mas span {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+}
+
+.feto ul li:nth-child(2) div .mas div {
+    margin-top: 0.5rem;
+}
+
+.feto ul li:nth-child(2) div .mas span img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+}
+.feto ul li:nth-child(2) div:nth-child(2) span{
+    vertical-align: middle;
+    color: rgba(41, 47, 58, .5);
+    font-size: 13px;
+    line-height: 1rem;
+}
+.feto ul li:nth-child(2) div:nth-child(2) span:last-of-type{
+    display: inline-block;
+    float: left;
+}
+.feto ul li:nth-child(2) div:first-child {
+    width: 1.536rem;
+    height: 1.536rem;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.feto ul li:nth-child(2) div:first-child img {
+    width: 100%;
+    height: 100%;
+}
+
+.feto ul .logo {
+    width: 150px;
+    height: 150px;
+}
+
+.feto ul .logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.feto ul li:last-child p:first-child {
+    text-indent: 1em;
+}
+
+.feto ul li:last-child div {
+    /*     width:15rem;
+height:8rem; */
+    margin-top: 1rem;
+}
+
+.feto ul li:last-child div img {
+    width: 100%;
+    height: 100%;
+}
+
+.rcontent img {
+    width: 100% !important;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.times {
+    color: rgba(41, 47, 58, .5);
+    font-size: 13px;
+    display: inline-block;
+    float: left;
+    /*  transform: translateY(-3px); */
+    vertical-align: middle;
+}
+
+.times::after{
+    content: "";
+    display: inline-block;
+    background: .999999;
+    width: 1px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+.tit img {
+    width: 100%;
+}
+
+.newsSummary{
+    padding: 10px;
+    >img{
+        float: left;
+        width: 10px;
+        margin: 10px 0 0 10px;
+    }
+    >div{
+        padding: 10px;
+        background: #EEF3FF;
+        text-indent: 2em;
+    }
+}

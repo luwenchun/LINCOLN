@@ -1,0 +1,101 @@
+
+//   reset
+$BGCOLOR: #f9f9f9;
+$RTWIDTH: 28%;
+$RCWIDTH: 72%;
+$font-12: .512rem;
+$font-14: .58rem;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html{
+    font-size: 16px;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+  }
+  body{
+    font-size: 62.5%;
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    background-color: $BGCOLOR;
+
+    
+
+    .separator{
+        background-color: #F5F5F9;
+        height: 8px;
+        border-top: 1px solid #ECECED;
+        border-bottom: 1px solid #ECECED;
+    }
+
+    .form{
+        padding: 0 15px;
+        .header{
+            line-height: 40px;
+            color: #888;
+            font-size: $font-14;
+            border-bottom: 1px solid #F6F6F6;
+            .status{
+                float: right;
+                font-weight: 400;
+                color:orange;
+
+            }
+        }
+        .content{ 
+            padding: 8px 0 15px;
+            .row{
+                display: -webkit-box; 
+                display: flex;
+                flex-flow: row wrap;
+                width: 100%;
+                line-height: 1.024rem;
+                font-size: $font-12;
+                font-weight: 400;
+                color: #181818;
+                
+                .rt{
+                    font-weight: 500;
+                    width: $RTWIDTH;
+                    text-align: center;
+                }
+                .rc{
+                    width: $RCWIDTH;
+                }
+
+                .toolbox{
+                    width: 100%;
+                    flex-flow: wrap;
+                    text-align: right;
+                }
+            }
+        }
+
+    }
+
+    .btn-primary{
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 1px;
+        background-color: #108ee9;
+        color: #f7f7fa;
+    
+    }
+    
+
+
+}
+

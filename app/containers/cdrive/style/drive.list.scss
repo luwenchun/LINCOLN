@@ -1,0 +1,132 @@
+
+//   reset
+$BGCOLOR: #f9f9f9;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 16px;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
+body{
+    font-size: 62.5%;
+}
+
+.mui-content.cdrive-list .mui-table-view-cell {
+    padding: 11px 15px;
+}
+
+.mui-content .mui-table-view-cell {
+    margin-bottom: 15px;
+    padding: 0;
+    color: #5a5a5a;
+}
+
+.mui-table-view-cell {
+    color: #000;
+    h4,h5,p {
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #000;
+        font-weight: 100;
+    }
+
+    .mui-h5 {
+        color: #d9772d;
+        border: 1px solid #d9772d;
+        border-radius: 3px;
+        display: inline-block;
+        padding: 0 7px;
+    }
+
+    .bottom-state {
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+        display: block;
+        font-size: 14px;
+    }
+    .st {
+        color: #e46a6c;
+    }
+}
+
+.no-data {
+    text-align: center;
+}
+
+
+
+.cdrive-detail-page {
+    .mui-table-view-cell {
+        h4 {
+            margin-bottom: 8px; 
+        }
+        .f-bold {
+            font-weight: 700;
+        }
+        &:after {
+            left: 0;
+        }
+    }
+
+    .cdrive-call {
+        position: relative;
+        top: 3px;
+        display: inline-block;
+        width: 25px;
+        height: 15px;
+        background: url(../images/phone.png) no-repeat;
+        background-size: 25px auto;
+    }
+
+    .buttons-set {
+        padding: 0 10px;
+        p {
+            margin-top: 10px;
+            text-align:center;
+            font-size: 12px;
+        }
+        strong {
+            margin-right: 3px;
+            font-size: 16px;
+            font-weight: 100;
+            vertical-align: middle;
+            color: #e53b3f;
+        }
+    }
+
+    .mui-btn-block {
+        margin-top: 10px;
+        padding: 10px 0;
+        border-radius: 0;
+        border: 0;
+        background-color: #db7d39;
+        font-size: 14px;
+    }
+}
+
+.mui-content.cdrive-list {
+    .mui-table-view {
+        &:after {
+            height:0;
+        }
+    }
+    .mui-table-view-cell {
+        margin-bottom: 0;
+        padding: 11px 15px;
+        &:after {
+            height: 1px;
+            left: 0;
+        }
+        &:last-child:after {
+            height: 0;
+        }
+    }
+    .mui-table-view-cell:last-child:after {
+        height: 0;
+    }
+}

@@ -1,0 +1,15 @@
+/**
+ * @description 侧边菜单栏
+ *
+ */
+
+ .page-sidebar {
+    position: fixed;
+    width: 235px;
+    bottom: 0;
+    top: 0;
+    max-height:none !important;
+    float: left;
+    background-color:#001529;
+    overflow: auto;
+ }

@@ -1,0 +1,239 @@
+
+//   reset
+$BGCOLOR: #f9f9f9;
+$RTWIDTH: 28%;
+$RCWIDTH: 72%;
+$font-12: .512rem;
+$font-14: .58rem;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html{
+    font-size: 16px;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+  }
+  body{
+    font-size: 62.5%;
+  }
+
+
+  .order{
+    position:relative;
+    width:100%;
+    height:100%;
+    background:#f1f1f1;
+    font-size:0.7rem;
+    .head{
+      background:white;
+      padding:0.2rem 0.3rem 0.3rem 0.8rem;
+      ul{
+        li{
+          line-height:1.5rem;
+          overflow:hidden;
+          >span{
+            padding-right: .5rem;
+          }
+          &:first-child{
+           div:first-child{
+               float: left;
+           }
+           div:last-child{
+               float:right;
+           }
+          }
+          
+          i{
+            color:red;
+            font-size:0.9rem;
+            margin-left:0.5rem;
+          }
+        }
+      }
+    }
+    .state{
+      height: 3rem;
+      line-height:3rem;
+      background: white;
+      padding-left:0.8rem;
+      margin:0 0.5rem;
+      i{
+        color:red;
+        font-style:normal;
+      }
+    }
+    .cancel{
+      margin:0.2rem 0.5rem;
+    }
+    .next{
+      text-align:center;
+      color:white;
+      background:#a8a3a3;
+      line-height:2rem;
+      margin:0 0.5rem;
+    }
+    .boldbox{
+        margin-top: 1rem;
+        div:first-child{
+            margin:0 1rem 0 1.5rem;
+            opacity:0.6;
+        }
+        div{
+            width: 6rem;
+            float: left;
+            background: #3790f3;
+            line-height: 2rem;
+            height: 2rem;
+            text-align: center;
+            color: white;
+        }
+       
+    }
+    .meterial{
+      background:white;
+      margin-top:0.4rem;
+      ul{
+        li:first-child{
+          text-align:center;
+          border:none;
+          i{
+            font-size: 1.1rem;
+            margin:0 0.2rem;
+            vertical-align: middle;
+          }
+        }
+        li{
+          overflow:hidden;
+          line-height:1.5rem;
+          padding:0.2rem 0.3rem 0.3rem 0.8rem;
+          border-bottom:1px solid #afacac;
+          vertical-align: middle;
+          img{
+            width: 3rem;
+            vertical-align: middle;
+          }
+          .action{
+            i{
+              font-size:1.5rem;
+              vertical-align: middle;
+            }
+          }
+          div{
+            position: relative;
+            vertical-align: middle;
+            input{
+              width: 1rem;
+              height: 1rem;
+              overflow: hidden;
+              opacity: 0;
+              position: absolute;
+              top: 5px ;
+              right: 35px;
+            }
+            span{
+              padding:0 0.2rem;
+              i{
+                font-size:1.2rem;
+              }
+            }
+          }
+          div:first-child{
+            float: left;
+          }
+          div:last-child{
+            float:right;
+          }
+        }
+      }
+    }
+    .remark{
+      overflow:hidden;
+      background:white;
+      padding:1rem 0.5rem 0 0.8rem;
+      div:first-child{
+        float:left;
+        color:#a29f9f;
+        padding: 0.2rem;
+      }
+      div:last-child{
+        float:right;
+        width:12rem;
+        height:3rem;
+        background:white;
+        padding:0.2rem;
+        textarea{
+          width:100%;
+          height:100%;
+          border:none;
+          color:#a29f9f;
+        }
+      }
+    }
+    .back{
+      overflow:hidden;
+      background:white;
+      padding:1rem 0.5rem 0.5rem 0.8rem;
+      div:first-child{
+        width: 2.5rem;
+        height: 2.5rem;
+        text-align:center;
+        line-height: 2.5rem;
+        background: #e5e5e5;
+        border: 1px dashed gray;
+        margin-right:0.3rem;
+      }
+      div:last-child{
+        span{
+          display:block;
+        }  
+      }
+      div{
+        float:left;
+        i{
+          font-size:1.6rem;
+          color:#a29f9f;
+        }
+      }
+    }
+    .rit{
+      display:inline-block;
+      margin-left:0.3rem;
+    }
+    .complete{
+      width:93%;
+      margin:1rem auto;
+      background: #3790f3;
+      line-height: 2rem;
+      height: 2rem;
+      text-align: center;
+      color: white;
+      border-radius:0.1rem;
+    }
+    .testdrive{
+      width:93%;
+      margin:1rem auto;
+      background: #3790f3;
+      line-height: 2rem;
+      height: 2rem;
+      text-align: center;
+      color: white;
+      border-radius:0.1rem;
+    }
+  
+  }
+  @font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+     url('../fonts/iconfont.woff') format('woff'),
+     url('../fonts/iconfont.ttf') format('truetype'),
+     url('../fonts/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+  
+

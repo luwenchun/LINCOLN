@@ -1,0 +1,166 @@
+.order{
+    position:relative;
+    width:100%;
+    height:100%;
+    background:#f1f1f1;
+    font-size:0.7rem;
+    padding-bottom: 2.5rem;
+    .head{
+      background:white;
+      padding:0.2rem 0.3rem 0.3rem 0.5rem;
+      ul{
+        li{
+          >span{
+            padding-right: .5rem;
+          }
+          line-height:1.3rem;
+          overflow:hidden;
+          &:first-child{
+           div:first-child{
+               float: left;
+           }
+           div:last-child{
+               float:right;
+           }
+          }
+          div:first-child{
+            float: left;
+        }
+          div:last-child{
+              float:right;
+              textarea{
+                width:100%;
+                height:100%;
+                border:none;
+              }
+          }
+          
+          i{
+            color:red;
+            font-size:0.9rem;
+            margin-left:0.5rem;
+          }
+        }
+        .car{
+          div{
+            float:right;
+            width:80%;
+            select{
+                width:40%;
+                margin-right:0.3rem;
+            }
+          }
+        }
+      }
+    }
+    .state{
+      height: 3rem;
+      line-height:3rem;
+      background: white;
+      padding-left:0.8rem;
+      margin:0 0.5rem;
+      i{
+        color:red;
+        font-style:normal;
+      }
+    }
+    .meterial{
+        background:white;
+        margin-top:0.4rem;
+        padding: 0 0.2rem 0.3rem 0.5rem;
+        ul{
+          li:first-child{
+            text-align:center;
+            border:none;
+            padding-top:0.8rem;
+            i{
+              font-size:0.9rem;
+              margin:0 0.2rem;
+            }
+          }
+        
+      }
+    }
+    .met{
+      div:first-child{
+        margin-right:5px;
+      }
+     
+    }
+    .mat{
+      background:white;
+      overflow:hidden;
+      border-bottom: 1px solid gray;
+      padding: 0.2rem 0 0.3rem 0.5rem;
+        ul{
+          .good{
+            float:right !important;
+            width:5.89rem;
+          }
+            li{
+              input{
+                background:url("../images/aa.png") no-repeat;
+                background-position:0 0;
+                width:100%;
+                height:100%;
+                &:checked{
+                  background-position:-42px -7px;
+                }
+              }
+                overflow:hidden;
+                float:left;
+                height:1.6rem;
+                div:first-child{
+                    width:20px;
+                    height:20px;                  
+                    background:white;
+                    border:1px solid black;
+                    // label{
+                    //   display:inline-block;
+                    //   width:100%;
+                    //   height:100%;
+                    //   text-align:center;
+                    //   line-height:1rem;
+                    //   i{
+                    //     font-size:0.8rem;
+                    //     display:none;
+                    //   }
+                    // }
+                }
+                div{
+                    float:left;
+                    margin-top:0.5rem;
+                }
+            }
+        }
+    }
+    .choose{
+      background:white;
+      padding: 0.7rem 0.3rem 0.6rem 0.5rem;
+    }
+    .testdrive{
+      width:93%;
+      margin:1rem auto;
+      background: #3790f3;
+      line-height: 2rem;
+      height: 2rem;
+      text-align: center;
+      color: white;
+      border-radius:0.1rem;
+    }
+    
+  }
+  @font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+     url('../fonts/iconfont.woff') format('woff'),
+     url('../fonts/iconfont.ttf') format('truetype'),
+     url('../fonts/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+  

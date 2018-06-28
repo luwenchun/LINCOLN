@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"></meta>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"></meta>
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <title>资讯详情</title>
+</head>
+<style>
+  * {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  #feto ul {
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  #feto ul li {
+    margin-bottom: 10px;
+    line-height: 1rem;
+  }
+
+  #feto ul li h2 {
+    line-height: 1.5rem;
+  }
+
+  #feto ul li:nth-child(2) {
+    overflow: hidden;
+  }
+
+  #feto ul li:nth-child(2) div {
+    line-height: 1rem;
+    float: left;
+  }
+
+  #feto ul li:nth-child(2) div:last-child {
+    line-height: 1rem;
+    float: right;
+    text-align: right;
+  }
+
+  #feto ul li:nth-child(2) div:last-child span:first-child {
+    color: white;
+    display: inline-block;
+    background: skyblue;
+    padding: 0 0.1rem;
+  }
+
+  #feto ul li:nth-child(2) div:last-child img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+  }
+
+  #feto ul li:nth-child(2) div:last-child span:last-child {
+    display: inline-block;
+    /* background-image: linear-gradient(-139deg, #FA7257 0%, #F94342 100%); */
+    padding: 0 5px 0 0;
+    text-align: center;
+    /* border-radius: 2px; */
+    font-size: 14px;
+    min-width: 30px;
+    vertical-align: middle;
+  }
+
+  #feto ul li:nth-child(2) div .masd span {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+    float: left;
+    margin-top: 0.2rem;
+    border-radius: 10px;
+    background: gray;
+  }
+
+  #feto ul li:nth-child(2) div .mas {
+    display: block;
+    color: black!important;
+    font-size: 14px;
+  }
+
+  #feto ul li:nth-child(2) div .mass {
+    float: left;
+  }
+
+  #feto ul li:nth-child(2) div .masd {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+
+  #feto ul li:nth-child(2) div .masd img {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+  }
+
+  #feto ul li:nth-child(2) div .mas span {
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+
+  #feto ul li:nth-child(2) div .mas div {
+    margin-top: 0.5rem;
+  }
+
+  #feto ul li:nth-child(2) div .mas span img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+  }
+
+  #feto ul li:nth-child(2) div:nth-child(2) span {
+    vertical-align: middle;
+    color: rgba(41, 47, 58, .5);
+    font-size: 13px;
+    line-height: 1rem;
+  }
+
+  #feto ul li:nth-child(2) div:nth-child(2) span:last-of-type {
+    display: inline-block;
+    float: left;
+  }
+
+  #feto ul li:nth-child(2) div:first-child {
+    border-radius: .8rem;
+    width: 1.536rem;
+    height: 1.536rem;
+    margin-right: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+
+  #feto ul li:nth-child(2) div:first-child img {
+    border-radius: .8rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  #feto ul .logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  #feto ul .logo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  #feto ul li:last-child p:first-child {
+    text-indent: 1em;
+  }
+
+  #feto ul li:last-child div {
+    /*     width:15rem;
+    height:8rem; */
+    margin-top: 1rem;
+  }
+
+  #feto ul li:last-child div img {
+    width: 100%;
+    height: 100%;
+  }
+
+  #rcontent {
+    padding: 10px 3%;
+    border: solid .5px #F9F9F9;
+  }
+
+  #rcontent img {
+    width: 107% !important;
+    border-radius: 5px;
+    margin: 0px 0 0 -3.5%;
+    padding: 0px;
+  }
+  #rcontent p,#rcontent p span{
+    line-height: 100%;
+  }
+  .times {
+    color: rgba(41, 47, 58, .5);
+    font-size: 13px;
+    display: inline-block;
+    float: left;
+    /*  transform: translateY(-3px); */
+    vertical-align: middle;
+  }
+
+  .times::after {
+    content: "";
+    display: inline-block;
+    background: #999999;
+    width: 1px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 0 10px;
+  }
+
+  .tit img {
+    width: 100%;
+  }
+
+  .newsSummary {
+    padding: 10px;
+  }
+
+  .newsSummary>img {
+    float: left;
+    width: 10px;
+    margin: 10px 0 0 10px;
+  }
+
+  .newsSummary>div {
+    padding: 25px;
+    line-height: 22px;
+    background: #EEF3FF;
+    word-wrap:break-word;
+  }
+</style>
+<script>
+  function dateName(date) {
+    let cur = (new Date()).getTime() - Number(date);
+    let msg = '';
+    if (cur > 259200000) { // 大于三天,显示日期
+      msg = Number(date).getMonth() + 1 + '-' + Number(date).getDate() + '天前';
+    } else if (cur >= 86400000) {  // 大于等于24小时,显示X天前
+      msg = Math.floor(cur / 86400000) + '天前';
+    } else if (cur >= 3600000) {  // 大于等于1小时,显示X小时前
+      msg = Math.floor(cur / 3600000) + '小时前';
+    } else if (cur >= 60000) {  // 大于等于1分钟,显示X分钟前
+      msg = Math.floor(cur / 60000) + '分钟前';
+    } else {  // 小于60S, 显示刚刚
+      msg = '刚刚'
+    }
+    return msg;
+  }
+</script>
+
+<body>
+  <!-- <div th:text="${wxCode}" id="master" >
+  </div> -->
+  <div id="feto">
+    <div class="tit">
+      <img alt="资讯背景图片" src="https://carapptest.gtmc.com.cn/fs01/20180308/ac7fa468a88b3c2ef22a657f6dceb45a.jpg">
+    </div>
+    <ul>
+      <li>
+        <h2 th:text="${result.title}">惊艳过来看，TA也有一个汽车界首创“绝活”</h2>
+      </li>
+      <li>
+        <div>
+          <img alt="用户头像" src="/api/template/img/aa.png" th:src="@{${result.iconPhoto}}"></img>
+        </div>
+        <div>
+          <span class="mas" th:text="${result.dealerName}">柯冬冬</span>
+          <span class="mass masd">
+            <img alt="眼睛" src="./api/template/img/eye.png" />
+          </span>
+          <span class="times" th:text="${#dates.format(result.releaseDate,'MM-dd HH:mm')}">12-22 18:29</span>
+          <span id="shouTime"></span>
+        </div>
+        <div onclick="javscript:goFollow()">
+          <img id='addImg' alt="加号" src="./api/template/img/add.png">
+          <span id='follow'>关注</span>
+        </div>
+      </li>
+      <li class="newsSummary">
+        <img alt="圈圈" src='./api/template/img/Oval 2@3x.png' />
+        <div>{概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段概要字段}</div>
+      </li>
+      <li id="rcontent" th:utext="${result.content}">
+        <p>
+          惊艳过来看，TA也有一个汽车界首创“绝活”,惊艳过来看，TA也有一个汽车界首创“绝活”惊艳过来看，TA也有一个汽车界首创“绝活”,惊艳过来看，TA也有一个汽车界首创“绝活”
+        </p>
+        <p>
+          惊艳过来看，TA也有一个汽车界首创“绝活”,惊艳过来看，TA也有一个汽车界首创“绝活”惊艳过来看，TA也有一个汽车界首创“绝活”,惊艳过来看，TA也有一个汽车界首创“绝活”
+        </p>
+
+        <div>
+          <img src="./api/template/img/demo.jpg">
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+<script type="text/javascript" src="/api/template/js/js.js"></script>
+<script src="/api/template/js/jquery-2.0/jquery.js"></script>
+<script>
+  //  var url1="http://121.196.193.149:9020/dealer/api/v1/carType";
+  //  $.ajax({
+  //    type:'GET',
+  //    url:url1,
+  //    dataType:'json',
+  //    contentType:'application/x-www-form-urlencoded;charset=utf-8',
+  //    success:function(result){
+  //     var   str=result.data;
+  //      document.getElementById('feto').innerHTML=str;
+  //    }
+  //  })
+</script>
+<script>
+  (() => {
+    document.getElementById('shouTime').innerHTML = dateName(1524822834726);
+  })()
+  function dateName(date) {
+    let old = new Date(date)
+    let cur = (new Date()).getTime() - Number(date);
+    let msg = '';
+    if (cur > 259200000) { // 大于三天,显示日期
+      msg = old.getMonth() + 1 + '-' + old.getDate();
+    } else if (cur >= 86400000) {  // 大于等于24小时,显示X天前
+      msg = Math.floor(cur / 86400000) + '天前';
+    } else if (cur >= 3600000) {  // 大于等于1小时,显示X小时前
+      msg = Math.floor(cur / 3600000) + '小时前';
+    } else if (cur >= 60000) {  // 大于等于1分钟,显示X分钟前
+      msg = Math.floor(cur / 60000) + '分钟前';
+    } else {  // 小于60S, 显示刚刚
+      msg = '刚刚'
+    }
+    return msg;
+  };
+
+  var isFollow = false;
+  function goFollow() {
+    try {
+      window.webkit.messageHandlers.NativeJavaScriptInterface.postMessage({
+        body: "NativeJavaScriptInterface",
+        type: "follow"
+      });
+    } catch (error) {
+      // alert(JSON.stringify(error))
+    }
+    try {
+      window.NativeJavaScriptInterface.finish();
+    } catch (err) { }
+
+    if (isFollow) {
+      $('#addImg').show();
+      $('#follow').html('关注');
+      isFollow = false;
+    } else {
+      $('#addImg').hide();
+      $('#follow').html('已关注')
+      isFollow = true;
+    }
+
+
+  }
+</script>
+
+</html>

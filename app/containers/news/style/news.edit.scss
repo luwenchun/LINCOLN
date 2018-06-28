@@ -1,0 +1,47 @@
+
+//   reset
+$BGCOLOR: #fff;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html{
+    font-size: 16px;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+  }
+  body{
+    font-size: 62.5%;
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .ant-search-form {
+    padding: 10px;
+    background: #fbfbfbc9;
+    border: 1px solid #e8e8e8;
+    border-bottom: none;
+  }
+
+  .ant-form-item{
+    display: flex;
+  }
+
+  .required::before{
+    display: inline-block;
+    margin-right: 4px;
+    content: "*";
+    font-family: SimSun;
+    line-height: 1;
+    font-size: 14px;
+    color: #f5222d;
+  }
+
+  
+    
+

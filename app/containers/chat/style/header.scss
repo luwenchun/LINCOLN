@@ -1,0 +1,43 @@
+@import './font.scss';
+.head{
+    border-bottom: .5px solid #ccc;
+    background-color: #2296FF;
+    div{
+        height: 60px;
+        display: inline-block;
+        float: left;
+    }
+    >div:first-of-type{
+        width: 230px;
+        background: url('../images/lklog.png') no-repeat center/160px;
+    }
+    >div:nth-of-type(2){
+        position: relative;
+        >i{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 58px;
+            z-index: 9;
+        }
+        >input{
+            position: absolute;
+            padding: 0 5px 0 30px;
+            width: 250px;
+            height: 30px;
+            border: .5px solid #e1e1e1;
+            background: white;
+            border-radius: 15px;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+        }
+    }
+    &:before, &:after{
+        width: 0;
+        height: 0;
+        display: block;
+        content: "";
+        clear: both;
+    }
+}

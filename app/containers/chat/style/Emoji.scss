@@ -1,0 +1,23 @@
+.emoji{
+    position: absolute;
+    width: 100%;
+    top: 30px;
+    left: 0;
+    background: rgba(255,255,255,.8);
+    z-index: 99;
+    >span{
+        padding: 2px;
+        font-size: 22px;
+        display:inline-block;
+        width: 34px;
+        text-align: center;
+        cursor: pointer;
+    }
+}
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}

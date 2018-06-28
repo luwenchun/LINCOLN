@@ -1,0 +1,175 @@
+
+//   reset
+$BGCOLOR: #f9f9f9;
+$RTWIDTH: 28%;
+$RCWIDTH: 72%;
+$font-12: .512rem;
+$font-14: .58rem;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html{
+    font-size: 16px;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei";
+  }
+  body{
+    font-size: 62.5%;
+  }
+    @font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+     url('../fonts/iconfont.woff') format('woff'),
+     url('../fonts/iconfont.ttf') format('truetype'),
+     url('../fonts/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .wrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 9;
+    .shat{
+        background:white;
+        .defination{
+            text-align:center;
+            line-height:1.6rem;
+        }
+        .plate{
+            margin-bottom:0.3rem;
+            span{
+                display: inline-block;
+                line-height:1.5rem;
+                padding: .5rem;
+                &:first-child{
+                   text-align:left;
+                   color:#3790f3;
+                   width: 10%;
+                }
+                &:nth-child(2){
+                    text-align:center;
+                    width: 80%;
+                }
+                &:last-child{
+                     text-align:right;
+                     color:#3790f3;
+                     width: 10%;
+                }
+            }
+        }
+        .action{
+            table{
+                width:100%;
+                border-bottom:1px solid gray;
+                tbody{
+                    tr{
+                        td{
+                            line-height:1.7rem;
+                            border-left:1px solid gray;
+                            border-top:1px solid gray;
+                            box-sizing: border-box;
+                            &:nth-child(2n){
+                              width: 30%
+                            }
+                            &:nth-child(2n-1){
+                              width: 20%
+                            }
+                            text-align:center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .confirmSelect{
+        padding: .5rem 0;
+        text-align: center;
+        span{
+            background-color: #2296FF;
+            color: white;
+            padding: .5rem 2.5rem;
+            border-radius: 5px;
+            line-height: 2rem;
+        }
+        span:first-of-type{
+            margin-right: 1rem;
+        }
+    }
+  }
+
+
+
+  @-webkit-keyframes slideInUp {
+    from {
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+      visibility: visible;
+    }
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes slideInUp {
+    from {
+      -webkit-transform: translate3d(0, 100%, 0);
+      transform: translate3d(0, 100%, 0);
+      visibility: visible;
+    }
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .swing {
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-animation: slideInUp .2s;
+    animation: slideInUp .2s;
+  }
+
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-animation: fadeIn .5s;
+    animation: fadeIn .5s;
+  }
+ .show{
+  //  display: block;
+  z-index: 5;
+ }
+ .hide{
+  //  display: none;
+  z-index: -89999;
+ }

@@ -1,0 +1,113 @@
+@import './font.scss';
+.often{
+    width: 300px;
+    height: 300px;
+    border: .5px solid #ccc;
+    position: absolute;
+    bottom: 30px;
+    left: 55px;
+    overflow: hidden;
+    background: rgba(255,255,255, .9);
+    border-radius: 0 ;
+    padding:  10px 0  10px 0;
+    text-align: center;
+    border-radius: 5px;
+    ul{
+        padding: 0 10px;
+        width: 316px;
+        height: 245px;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        margin-bottom: 0;
+        margin-top: 5px;
+        font-family: 'SimHei,Microsoft Yahei'!important;
+        li{
+            cursor: pointer;
+            text-align: left;
+        }
+        
+    }
+    .manyOne{
+        p{
+            margin-bottom: 0; 
+        }
+        .manyTwo{
+            p{
+                padding-left: 20px;
+            }
+            .manyThree{
+                p{
+                    padding-left: 40px;
+                }
+                .manyFor{
+                    p{
+                        padding-left: 60px;
+                    }
+                }
+            }
+        }
+    }
+    >span{
+        font-size: 14px;
+        margin: 0px 0 0 15px;
+    }
+    >span:hover{
+        color: red;
+        cursor: pointer;
+        
+    }
+    .tit{
+        border-bottom: .5px solid #ccc;
+        >span{
+            margin-right: 0!important;
+            padding: 5px 15px;
+            border-radius: 0;
+            display: inline-block;
+            width: 50%;
+            float: left;
+        }
+        >span:nth-of-type(2){
+            border-radius: 0;
+        }
+        &:after, &:before{
+            width: 0;
+            height: 0;
+            content: "";
+            display: block;
+            clear: both;
+        }
+    }
+    >i{
+        position: absolute;
+        top: 13px;
+        right: 53px;
+        z-index: 9;
+    }
+    >input{
+        text-align: left;
+        width: 80%;
+        border: .5px solid #ccc;
+        border-radius: 15px;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 14px;
+        font-size: 13px;
+        
+    }
+    
+}
+
+.show{
+    display: block;
+}
+.lShow{
+    display: inline-block;
+}
+.hide{
+    display: none;
+}
+.selectd{
+    background: rgb(34,150,255);
+    border-color: rgb(34,150,255)!important;
+    color: white!important;
+}

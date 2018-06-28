@@ -1,0 +1,148 @@
+.order{
+    position:relative;
+    width:100%;
+    height:100%;
+    background:#f1f1f1;
+    font-size:0.7rem;
+    .head{
+      background:white;
+      padding:0.2rem 0.3rem 0.3rem 0.8rem;
+      ul{
+        .address{
+            .ritt{
+              border:1px solid gray;
+              float:right;
+              height:1rem;
+              padding:0.1rem;
+              line-height:1rem;
+              input{
+                width:100%;
+                height:100%;
+              }
+            }
+        }
+        li{
+          line-height:1.1rem;
+          overflow:hidden;
+          .rit{
+             float:right;
+             width:70%;
+             padding:0.2rem;
+          }
+          select{
+            width:3rem;
+          }
+          &:first-child{
+           div:first-child{
+               float: left;
+           }
+           div:last-child{
+               float:right;
+           }
+           
+          }
+          .mation{
+             float:right;
+             width:70%;
+          }
+          i{
+            color:red;
+            font-size:0.9rem;
+            margin-left:0.5rem;
+          }
+        }
+        .comment{
+            div:first-child{
+             float: left;
+         }
+           div:last-child{
+               float:right;
+               textarea{
+                 width:100%;
+                 height:100%;
+                 border:none;
+              }
+           }
+        }
+        .bet{
+          font-size:0.7rem;
+          div:first-child{
+            border:none;
+            padding:0;
+            line-height:2.2rem;
+          }
+          div:nth-child(2){
+            flex-basis:auto;
+          }
+          .arrow{
+            width:83%;
+            float:left;
+          }
+          .arrowed{
+            float:right;
+            width:15%;
+            font-size:0.5rem;
+            margin-top:0.5rem;
+            background:#3790f3;
+            color:white;
+            padding:0 0.1rem;
+            text-align:center;
+          }
+          
+        }
+      }
+    }
+    .state{
+      height: 3rem;
+      line-height:3rem;
+      background: white;
+      padding-left:0.8rem;
+      margin:0 0.5rem;
+      i{
+        color:red;
+        font-style:normal;
+      }
+    }
+    .cancel{
+      margin:0.2rem 0.5rem;
+    }
+    .next{
+      text-align:center;
+      color:white;
+      background:#a8a3a3;
+      line-height:2rem;
+      margin:0 0.5rem;
+    }
+    .boldbox{
+        margin-top: 1rem;
+        div:first-child{
+            margin:0 1rem 0 1.5rem;
+            opacity:0.6;
+        }
+        div{
+            width: 6rem;
+            float: left;
+            background: #3790f3;
+            line-height: 2rem;
+            height: 2rem;
+            text-align: center;
+            color: white;
+        }
+       
+    }
+  
+  }
+  @font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+     url('../fonts/iconfont.woff') format('woff'),
+     url('../fonts/iconfont.ttf') format('truetype'),
+     url('../fonts/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont{
+    font-family:"iconfont" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+  

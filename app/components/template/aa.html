@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width,initial-scale=1.0"
+    />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title>资讯详情</title>
+</head>
+<style>
+    * {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #feto ul li {
+        margin-bottom: 10px;
+        line-height: 1rem;
+        overflow: hidden;
+    }
+
+    #feto ul li h2 {
+        line-height: 1.5rem;
+    }
+
+    #feto ul li:nth-child(2) {
+        overflow: hidden;
+    }
+
+    #feto ul li:nth-child(2) div {
+        line-height: 1rem;
+        float: left;
+    }
+
+    #feto ul li:nth-child(2) div:last-child {
+        line-height: 1rem;
+        float: right;
+        text-align: right;
+    }
+
+    #feto ul li:nth-child(2) div:last-child span:first-child {
+        color: white;
+        display: inline-block;
+        background: skyblue;
+        padding: 0 0.1rem;
+    }
+
+    #feto ul li:nth-child(2) div:last-child img {
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+    }
+
+    #feto ul li:nth-child(2) div:last-child span:last-child {
+        display: inline-block;
+        /* background-image: linear-gradient(-139deg, #FA7257 0%, #F94342 100%); */
+        padding: 0 5px 0 0;
+        text-align: center;
+        /* border-radius: 2px; */
+        font-size: 14px;
+        min-width: 30px;
+        vertical-align: middle;
+    }
+
+    #feto ul li:nth-child(2) div .masd span {
+        width: 3rem;
+        height: 3rem;
+        margin-right: 0.2rem;
+        margin-bottom: 0.2rem;
+        float: left;
+        margin-top: 0.2rem;
+        border-radius: 10px;
+        background: gray;
+    }
+
+    #feto ul li:nth-child(2) div .mas {
+        display: block;
+        color: black!important;
+        font-size: 14px;
+    }
+
+    #feto ul li:nth-child(2) div .mass {
+        float: left;
+    }
+
+    #feto ul li:nth-child(2) div .masd {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+
+    #feto ul li:nth-child(2) div .masd img {
+        vertical-align: middle;
+        width: 100%;
+        height: 100%;
+    }
+
+    #feto ul li:nth-child(2) div .mas span {
+        display: inline-block;
+        width: 0.7rem;
+        height: 0.7rem;
+    }
+
+    #feto ul li:nth-child(2) div .mas div {
+        margin-top: 0.5rem;
+    }
+
+    #feto ul li:nth-child(2) div .mas span img {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+    }
+
+    #feto ul li:nth-child(2) div:nth-child(2) span {
+        vertical-align: middle;
+        color: rgba(41, 47, 58, .5);
+        font-size: 13px;
+        line-height: 1rem;
+    }
+
+    #feto ul li:nth-child(2) div:nth-child(2) span:last-of-type {
+        display: inline-block;
+        float: left;
+    }
+
+    #feto ul li:nth-child(2) div:first-child {
+        width: 1.536rem;
+        height: 1.536rem;
+        margin-right: 10px;
+        margin-top: 5px;
+    }
+
+    #feto ul li:nth-child(2) div:first-child img {
+        border-radius: .8rem;
+        width: 100%;
+        height: 100%;
+    }
+
+    #feto ul .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    #feto ul .logo img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #feto ul li:last-child p:first-child {
+        text-indent: 1em;
+    }
+
+    #feto ul li:last-child div {
+        /*     width:15rem;
+    height:8rem; */
+        margin-top: 1rem;
+    }
+
+    #feto ul li:last-child div img {
+        width: 100%;
+        height: 100%;
+    }
+
+    #rcontent img {
+        width: 100% !important;
+        border-radius: 5px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .times {
+        color: rgba(41, 47, 58, .5);
+        font-size: 13px;
+        display: inline-block;
+        float: left;
+        /*  transform: translateY(-3px); */
+        vertical-align: middle;
+    }
+
+    .times::after {
+        content: "";
+        display: inline-block;
+        background: #999999;
+        width: 1px;
+        height: 16px;
+        vertical-align: middle;
+        margin: 0 10px;
+    }
+
+    .tit img {
+        width: 100%;
+    }
+</style>
+
+
+<body>
+    <!-- <div th:text="${wxCode}" id="master" >
+  </div> -->
+    <div id="feto">
+        <div class="tit">
+            <img alt="背景图片" src="https://carapptest.gtmc.com.cn/fs01/20180308/ac7fa468a88b3c2ef22a657f6dceb45a.jpg" />
+        </div>
+        <ul>
+            <li>
+                <h2>晚间新闻</h2>
+            </li>
+            <li>
+                <div>
+                    <img alt="用户头像" src="http://10.180.8.164:9007/api/template/img/iconPhoto2.png" />
+                </div>
+                <div>
+                    <span class="mas">广汽丰田汽车有限公司</span>
+                    <span class="mass masd">
+                        <img alt="眼睛" src="./api/template/img/eye.png" />
+                    </span>
+                    <span class="times">1.5万</span>
+                    <span id="shouTime"></span>
+                </div>
+                <div>
+                    <img alt="加号" src="./api/template/img/add.png" />
+                    <span>关注</span>
+                    <!-- <span>Hot</span> -->
+                </div>
+            </li>
+
+            <li id="rcontent">
+                <p>&nbsp;&nbsp;&nbsp;今日，广汽丰田2018款全新汉兰达(Highlander)正式上市。作为国内大中型SUV市场的开拓者和引领者，汉兰达从高处再出发，
+                    <strong>以更高颜值、更强性能以及更丰富的科技配置</strong>，再一次提高性价比和竞争力，续写“豪华大七座SUV”传奇。&nbsp;</p>
+                <p></p>
+                <img src="https://carapptest.gtmc.com.cn/fs01/20180308/ac7fa468a88b3c2ef22a657f6dceb45a.jpg" alt="undefined" style="float:none;height: auto;width: auto"
+                />
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;新车全系搭载2.0T D-4ST双涡管涡轮增压直喷发动机和6速自动变速箱，提供两驱和四驱版本共八款车型，
+                    <strong>全系产品市场建议指导价为23.98万元-33.08万元，售价区间保持不变，核心等级车型价值提升过万元。</strong>&nbsp;</p>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="http://10.180.8.164:9007/api/template/js/js.js"></script>
+<script src="http://10.180.8.164:9007/api/template/js/jquery-2.0/jquery.js"></script>
+<script>
+  //  var url1="http://121.196.193.149:9020/dealer/api/v1/carType";
+  //  $.ajax({
+  //    type:'GET',
+  //    url:url1,
+  //    dataType:'json',
+  //    contentType:'application/x-www-form-urlencoded;charset=utf-8',
+  //    success:function(result){
+  //     var   str=result.data;
+  //      document.getElementById('feto').innerHTML=str;
+  //    }
+  //  })
+</script>
+
+<script>
+    (() => {
+        document.getElementById('shouTime').innerHTML = dateName(1524822834726);
+    })()
+    function dateName(date) {
+        let old = new Date(date)
+        let cur = (new Date()).getTime() - Number(date);
+        let msg = '';
+        if (cur > 259200000) { // 大于三天,显示日期
+            msg = old.getMonth() + 1 + '-' + old.getDate();
+        } else if (cur >= 86400000) {  // 大于等于24小时,显示X天前
+            msg = Math.floor(cur / 86400000) + '天前';
+        } else if (cur >= 3600000) {  // 大于等于1小时,显示X小时前
+            msg = Math.floor(cur / 3600000) + '小时前';
+        } else if (cur >= 60000) {  // 大于等于1分钟,显示X分钟前
+            msg = Math.floor(cur / 60000) + '分钟前';
+        } else {  // 小于60S, 显示刚刚
+            msg = '刚刚'
+        }
+        return msg;
+    }
+</script>
+
+</html>
