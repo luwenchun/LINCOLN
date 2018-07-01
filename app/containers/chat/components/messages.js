@@ -134,7 +134,14 @@ export default class messages extends React.Component {
                             let myVideo = document.getElementById('video');
                             myVideo.play();
                         }
-                    })
+                    });
+
+                    JIM.onDisconnect(() => { 
+                        alert('异常断线，请重新登录！');
+                        history.go(0);
+                    });
+
+
                 }).onFail(function (data) {
                     console.log(data, '登录失败')
                 });
@@ -495,7 +502,7 @@ export default class messages extends React.Component {
     }
     save() {
         if (isSend) {
-            return !1;
+            return Toast('正在发送中……');
         }
         isSend = true;
         if (!this.props.target.userId) {
@@ -733,7 +740,7 @@ export default class messages extends React.Component {
     // 图片发送
     sendImg() {
         if (isSend) {
-            return !1;
+            return Toast('图片发送中……');
         }
         isSend = true;
         const _this = this;
@@ -784,14 +791,19 @@ export default class messages extends React.Component {
                             messageSource: 'h5',
                         }
                         _this.props.newMsg(obj);
-                        isSend = false;
+
                     } else if (res.returnFlag == 302) {
                         Toast(result.errorMsg);
                     } else {
                         Toast(result.errorMsg);
                         return _this.props.over(_this.props.target.userId);
                     }
+                    isSend = false;
+                },
+                error: function () {
+                    isSend = false;
                 }
+
             })
         } catch (e) {
             Toast('网络异常！')

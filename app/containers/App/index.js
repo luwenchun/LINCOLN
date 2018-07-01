@@ -4,11 +4,8 @@ import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
+// import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import Sidebar from 'components/Sidebar';
 import DriveList from 'containers/drive/drive.list';
 import DriveDetail from 'containers/drive/drive.detail';
 import DriveAdd from 'containers/drive/drive.add';
@@ -16,12 +13,15 @@ import Complete from 'containers/drive/complete';
 
 import CDriveAdd from 'containers/cdrive/drive.add';
 import CDriveMap from 'containers/cdrive/drive.map';
-import CDriveSearch from 'containers/cdrive/drive.search';
+// import CDriveSearch from 'containers/cdrive/drive.search';
 import CDriveList from 'containers/cdrive/drive.list';
 import CDriveDetail from 'containers/cdrive/drive.detail';
 import CDriveFeedback from 'containers/cdrive/drive.feedback';
 import CDriveRegister from 'containers/cdrive/drive.register';
 import CDriveFeedbackList from 'containers/cdrive/drive.feedback.list';
+
+import Chat from 'containers/chat/Loadable';
+import MaterialList from 'containers/materialList/Loadable';
 
 const AppWrapper = styled.div`
   // max-width: calc(768px + 16px * 2);
@@ -34,34 +34,26 @@ const AppWrapper = styled.div`
   >div:nth-of-type(2){ margin-left: 240px;}
 `;
 
-// const visible = location.host === 'localhost:3000';
-const visible = false;
 
 export default function App() {
-  // export default class App extends React.Component {
-  // render() {
   return (
-    // <AppWrapper history={this.props.history}>
     <AppWrapper>
       <Helmet
         titleTemplate="%s"
-        defaultTitle="后台"
+        defaultTitle="LINCOLN"
       >
-        <meta name="description" content="后台" />
+        <meta name="description" content="LINCOLN" />
       </Helmet>
-      {/* <Header /> */}
-      {visible
-        ? <Sidebar history={this.props.history} />
-        : ""}
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        
+        {/* 微信公众平台 */}
         <Route path="/wchat/drive" component={DriveList} />
         <Route path="/wchat/driveDetail" component={DriveDetail} />
         <Route path="/wchat/driveAdd" component={DriveAdd} />
         <Route path="/wchat/complete" component={Complete} />
 
-        
+        {/* 微信C端 */}
         <Route path="/wchat/cdriveAdd" component={CDriveAdd} />
         <Route path="/wchat/cdriveMap" component={CDriveMap} />
         <Route path="/wchat/cdriveList" component={CDriveList} />
@@ -69,11 +61,16 @@ export default function App() {
         <Route path="/wchat/cdriveFeeback" component={CDriveFeedback} />
         <Route path="/wchat/cdriveRegister" component={CDriveRegister} />
         <Route path="/wchat/cdriveFeedbackList" component={CDriveFeedbackList} />
+
+        {/* PC后台 */}
+        <Route path="/saicui/chat" component={Chat} alt='在线客服'/>
+        <Route path="/saicui/materialList" component={MaterialList}  alt='图文素材管理'/>
+
+
+        <Route exact path="/" component={HomePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
 
-      {/* <Footer /> */}
     </AppWrapper>
   );
-  // }
 }

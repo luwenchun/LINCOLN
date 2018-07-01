@@ -24,11 +24,12 @@ const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 let uuid = 0;
 const apis = [
-  { "id": "uploadFile", "url": "/material/uploadFile" },
+  { "id": "uploadFile", "url": "material/uploadFile" },
   // { "id": "getTagList", "url": "cmyManage/tag/getTagList" },
-  { "id": "insertNews", "url": "/material/uploadMedia"},
+  { "id": "insertNews", "url": "material/uploadMedia"},
   // { "id": "updateNews", "url": "community/news/updateNews", "format": false },
 ];
+
 
 const Authorization = DMCUtil.getJWTFromCookie()
 Http.setDomainUrl(SERVER_BASE_PATH);
@@ -137,7 +138,7 @@ class NewsEdit extends React.Component {
     super(props);
 
     this.state = {
-      richOpt: { UPLOAD_IMAGE_PATH },
+      richOpt: {  },
       tagList: [],
       previewVisible: false,
       previewPhonesAsArray: [],
@@ -148,7 +149,7 @@ class NewsEdit extends React.Component {
         "contentType": 1,
         "mediaType": -1,
         "labelName": "",
-        "newsSummary": "",
+        "introduction": "",
         "imgUrl":"",
         // "previewPhone": "",
         "status": 0,
@@ -539,7 +540,7 @@ class NewsEdit extends React.Component {
       message.error('请输入标题')
       return
     }
-    if (!this.state.formFieldValues.newsSummary) {
+    if (!this.state.formFieldValues.introduction) {
       message.error('请输入描述')
       return
     }
@@ -645,10 +646,10 @@ class NewsEdit extends React.Component {
             {...formItemLayout}
             label="描述"
           >
-            {getFieldDecorator('newsSummary', {
+            {getFieldDecorator('introduction', {
               rules: [{ required: false, whitespace: true, }],
             })(
-              <TextArea autosize={{ minRows: 4, maxRows: 4 }} onChange={onInputChange.bind(this, 'newsSummary')} />
+              <TextArea autosize={{ minRows: 4, maxRows: 4 }} onChange={onInputChange.bind(this, 'introduction')} />
             )}
           </FormItem>
           {this.genTagDropdown()}
@@ -660,7 +661,8 @@ class NewsEdit extends React.Component {
             <Upload
               // 文件地址
               name='photo'
-              action={SERVER_BASE_PATH+'material/uploadMedia'}
+              action={UPLOAD_IMAGE_PATH}
+              // action={SERVER_BASE_PATH+'material/uploadMedia'}
               listType="picture-card"
               multiple={true}
               supportServerRender={true}
@@ -681,7 +683,8 @@ class NewsEdit extends React.Component {
             <Upload
               // 文件地址
               name='photo'
-              action={SERVER_BASE_PATH+'material/uploadFile'}
+              // action={SERVER_BASE_PATH+'material/uploadFile'}
+              action={UPLOAD_IMAGE_PATH}
               listType="picture-card"
               multiple={true}
               supportServerRender={true}

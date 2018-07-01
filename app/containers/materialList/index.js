@@ -22,14 +22,17 @@ const Option = Select.Option;
 const TreeNode = TreeSelect.TreeNode;
 const MonthPicker = DatePicker.MonthPicker;
 const RangePicker = DatePicker.RangePicker;
+const { TextArea } = Input;
 
 const title = '资讯管理';
 
 
 const apis = [
-  { "id": "mediaList", "url": "material/mediaList" },
+  { "id": "mediaList", "url": "material/materialList" },
   { "id": "deleteNews", "url": "community/news/web/deleteNews", "format": false },
   { "id": "previewReady", "url": "template/preview/ready" },
+  { "id": "sendNews", "url": "sendNews/send", "format": false },
+
 
 ];
 const Authorization = DMCUtil.getJWTFromCookie()
@@ -58,30 +61,14 @@ class Info extends React.Component {
       expand: false,
       columns: [
         {
-          title: 'ID',
-          dataIndex: 'id',
-          width: 80,
-          key: 'id',
-          fixed: 'left',
-        },
-        {
           title: '创建时间',
-          dataIndex: 'createDate',
-          width: 180,
-          key: 'createDate',
-          // fixed: 'left',
-        },
-        {
-          title: '创建人',
-          dataIndex: 'createBy',
-          width: 110,
-          key: 'createBy',
+          dataIndex: 'updateDate',
+          key: 'updateDate',
           // fixed: 'left',
         },
         {
           title: '标题',
           dataIndex: 'title',
-          width: 250,
           key: 'title',
           render: (text, record) => {
             return (
@@ -91,11 +78,21 @@ class Info extends React.Component {
         },
         {
           title: '资源地址',
-          dataIndex: 'contentPath',
-          width: 180,
-          key: 'contentPath',
+          dataIndex: 'url',
+          key: 'url',
         },
-
+        {
+          title: '操作',
+          key: 'operation',
+          fixed: 'right',
+          width: 80,
+          render: (text, record) => {
+            const { onAction } = this
+            return (
+              <a onClick={this.groupHair.bind(this, record)}>群发</a>
+            )
+          },
+        },
 
       ],
       dataList: [],
@@ -109,10 +106,12 @@ class Info extends React.Component {
         showQuickJumper: true,
       },
       formFieldValues: {
-        "id": "",
-        "type": "",
-        "limit": 10,
-        "page": 1,
+        "type": "news",
+        "pageSize": 10,
+        "pageNum": 1,
+        // type: "",
+        // limit: 10,
+        // page: 1
       },
       selectedDate: '',
       selectedRowKeys: [],
@@ -126,6 +125,8 @@ class Info extends React.Component {
       drShow: false,
       previewData: {},
       messageShow: false,
+      groupShow: false,
+      groupValues: {},
     }
 
   };
@@ -154,9 +155,9 @@ class Info extends React.Component {
     Http.get('mediaList', params, callback => {
       // const callback = { "total": 167, "rows": [{ "limit": 10, "page": 1, "releaseNumber": 1, "orderName": null, "orderType": null, "id": 94, "labelId": null, "title": "晚间新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 4, "shareNumber": null, "browseNumber": 86, "commentNumber": 40, "contentType": 1, "previewPhone": null, "newsUrl": 'http://www.baidu.com', "releaseDate": "2018-03-08 15:40", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 95, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 5, "shareNumber": null, "browseNumber": 18, "commentNumber": 8, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:30", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 2, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 96, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 6, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 3, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 97, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 8, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 4, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 98, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 10, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:23", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 5, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 99, "labelId": null, "title": "标题字数过多展示测试测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 33, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 6, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 100, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 44, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 7, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 101, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 55, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 104, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 66, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 9, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 105, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1002, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 77, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 10, "createBy": 1 }] }
       const pagination = { ...this.state.pagination };
-      if (callback && callback['list']) {
-        pagination.total = callback['total'] || 0;
-        let dataList = callback['list'];
+      if (callback && callback['rows']) {
+        pagination.total = Number(callback['total']) || 0;
+        let dataList = callback['rows'];
         dataList.forEach((item, index) => {
           item.title = item.title && item.title.length > 12 ? item.title.slice(0, 12) + '……' : item.title;
         })
@@ -173,6 +174,37 @@ class Info extends React.Component {
     })
   }
 
+  handleSubmit (){
+    let { openIdList } = { ...this.state.groupValues }
+    if (!openIdList || !openIdList.length) return message.error('请输入OPENID！');
+    openIdList = openIdList.replace(/<\/?.+?>/g, ',');
+    openIdList = openIdList.replace(/[\r\n]/g, ',');
+    openIdList = openIdList.replace(/，/g, ',');
+    openIdList = openIdList.replace(/,,|,,,|,,,,|,,,,,|,,,,,,/g, ',');
+    openIdList = openIdList.split(',');
+    if (openIdList.length < 2) return message.error('请至少输入两个OPENID！')
+
+    let dataUp = [{
+      openIdList,
+      mediaId: this.state.groupValues.mediaId
+    }]
+    console.log(dataUp)
+    Http.post('sendNews', dataUp, (callback) => {
+      // console.log(this.state.formFieldValues);
+      if (callback&&callback['resultCode'] == 200) {
+        message.success('操作成功')
+        this.setState({ groupShow: false, groupValues: {} })
+      } else {
+        console.log(callback);
+        message.error(callback?`${callback['errMsg']}，请重试！`:'后台接口异常');
+        this.setState({ groupShow: false })
+      }
+    })
+
+
+
+
+  }
 
 
   handleTableChange = (pagination, filters, sorter) => {
@@ -180,8 +212,8 @@ class Info extends React.Component {
     const formFieldValues = { ...{}, ...this.state.formFieldValues }
     pager.current = pagination.current;
 
-    formFieldValues['limit'] = pager.pageSize;
-    formFieldValues['page'] = pager.current;
+    formFieldValues['pageSize'] = pager.pageSize;
+    formFieldValues['pageNum'] = pager.current;
     this.setState({
       pagination: pager,
       formFieldValues
@@ -192,91 +224,21 @@ class Info extends React.Component {
 
   componentWillMount() {
 
-    // this.setState({
-    //   findOfficialUser: [...
-    //     {
-    //       "id": 123,
-    //       "saicUserId": 321,
-    //       "name": "开发人员",
-    //       "mobilePhone": "13024172788",
-    //       "password": null,
-    //       "photoUrl": "",
-    //       "nickName": "",
-    //       "accountStatus": "ACTIVATED",
-    //       "createDate": 1524801465000,
-    //       "updateDate": 1524805016000,
-    //       "userType": 3,
-    //       "email": null,
-    //       "lastErrTs": null,
-    //       "isUsernameUpdatable": null,
-    //       "laiwang": null,
-    //       "registerSource": null,
-    //       "loginTs": null,
-    //       "photoId": null,
-    //       "lastLoginTs": null,
-    //       "lowerName": null,
-    //       "wangwang": null,
-    //       "errCount": null,
-    //       "qq": null
-    //     },
-    //   {
-    //     "id": 321,
-    //     "saicUserId": 123,
-    //     "name": "开发人员",
-    //     "mobilePhone": "13777898281",
-    //     "password": null,
-    //     "photoUrl": "",
-    //     "nickName": "",
-    //     "accountStatus": "ACTIVATED",
-    //     "createDate": 1524808245000,
-    //     "updateDate": 1524812216000,
-    //     "userType": 3,
-    //     "email": null,
-    //     "lastErrTs": null,
-    //     "isUsernameUpdatable": null,
-    //     "laiwang": null,
-    //     "registerSource": null,
-    //     "loginTs": null,
-    //     "photoId": null,
-    //     "lastLoginTs": null,
-    //     "lowerName": null,
-    //     "wangwang": null,
-    //     "errCount": null,
-    //     "qq": null
-    //   },
-    //   {
-    //     "id": 2323,
-    //     "saicUserId": 323,
-    //     "name": "开发人员表",
-    //     "mobilePhone": "17712654474",
-    //     "password": null,
-    //     "photoUrl": "https://carapptest.gtmc.com.cn/fs01/20180309/test",
-    //     "nickName": "",
-    //     "accountStatus": "ACTIVATED",
-    //     "createDate": 1524797805000,
-    //     "updateDate": 1524797134000,
-    //     "userType": 3,
-    //     "email": null,
-    //     "lastErrTs": null,
-    //     "isUsernameUpdatable": null,
-    //     "laiwang": null,
-    //     "registerSource": null,
-    //     "loginTs": null,
-    //     "photoId": null,
-    //     "lastLoginTs": null,
-    //     "lowerName": null,
-    //     "wangwang": null,
-    //     "errCount": null,
-    //     "qq": null
-    //   }
-    //   ]
-    // })
-
   }
 
   componentDidMount() {
     this.getDataList();
   }
+
+  groupHair(r) {
+    this.setState({
+      groupShow: true,
+      groupValues: { mediaId: r.mediaId }
+
+    })
+  }
+
+
 
   /**
    * 普通输入框，下拉框的值处理
@@ -294,10 +256,22 @@ class Info extends React.Component {
     }, () => {
       console.log('onInputChange.formFieldValues=====', this.state.formFieldValues)
     })
-
-
-
   }
+
+  groupChange(field, event) {
+    const isSelectTarget = !Object.hasOwnProperty.call(event, 'target')
+    const value = isSelectTarget ? event : event.target.value
+    const tempState = {}
+    tempState[field] = value
+    this.setState({
+      groupValues: { ...this.state.groupValues, ...tempState }
+    }, () => {
+      console.log('onInputChange.formFieldValues=====', this.state.formFieldValues)
+    })
+  }
+
+
+
 
   handleSearch = () => {
     const params = { limit: 10, page: 1 }
@@ -410,7 +384,7 @@ class Info extends React.Component {
   render() {
     const { onDealerCodeChange, onInputChange, onPublishDateChange, onAction, handleAdd } = this
     const { getFieldDecorator } = this.props.form;
-    const { dataList, columns, formFieldValues } = this.state;
+    const { dataList, columns, formFieldValues, groupChange } = this.state;
     return (
       <div className="wrap" style={{ 'padding': '5px' }}>
         <Helmet>
@@ -418,25 +392,13 @@ class Info extends React.Component {
           <meta name="description" content={title} />
         </Helmet>
         <Form layout={'inline'} className='ant-search-form'>
-          <Row gutter={24}>
+          {/* <Row gutter={24}>
             <Col span={8}>
               <FormItem {...formItemLayout} label={`ID`} style={{ width: '100%' }}>
                 <Input value={formFieldValues.title} onChange={onInputChange.bind(this, 'id')} />
               </FormItem>
             </Col>
-            {/* <Col span={8}>
-              <FormItem {...formItemLayout} label={`发布时间`} style={{ width: '100%' }}>
-                <RangePicker
-                  style={{ width: "100%" }}
-                  value={this.state.selectedDate}
-                  showTime={{ format: 'HH:mm' }}
-                  format="YYYY-MM-DD HH:mm"
-                  placeholder={['开始时间', '结束时间']}
-                  onChange={onPublishDateChange.bind(this)}
-                  onOk={(value) => { console.log('onOk: ', value); }}
-                />
-              </FormItem>
-            </Col> */}
+
             <Col span={8}>
               <FormItem {...formItemLayout} label={`类型`} style={{ width: '100%' }}>
                 <Select value={formFieldValues.type} onChange={onInputChange.bind(this, 'type')} >
@@ -450,17 +412,19 @@ class Info extends React.Component {
               </FormItem>
             </Col>
 
-
-
-          </Row>
-          <Row>
+          </Row> */}
+          {/* <Row>
             <Col span={24} style={{ textAlign: 'right', paddingTop: '5px' }}>
-              {/* <Button type="primary" htmlType="button" icon="search" onClick={onAction.bind(this, 'search')}>查询</Button> */}
               <Button type="primary" htmlType="button" onClick={onAction.bind(this, 'search')}>查询</Button>
               <Button style={{ margin: '0 8px' }} onClick={onAction.bind(this, 'reset')}>重置</Button>
               <Button type="primary" htmlType="button" onClick={() => { this.setState({ addShow: true }) }}>新建</Button>
             </Col>
-          </Row>
+          </Row> */}
+          {/* <Row>
+            <Col span={24} style={{ textAlign: 'right', paddingTop: '5px' }}>
+              <Button type="primary" htmlType="button" onClick={() => { this.setState({ addShow: true }) }}>新建</Button>
+            </Col>
+          </Row> */}
         </Form>
 
         <Table columns={columns}
@@ -470,7 +434,7 @@ class Info extends React.Component {
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange}
-          scroll={{ x: 1400 }}
+          scroll={{ x: 1900 }}
         />
 
         {/* 新增 */}
@@ -506,6 +470,41 @@ class Info extends React.Component {
             <div></div>
           </Modal>
           : ""}
+
+
+        {/* 群发 */}
+        {this.state.groupShow
+          ? <Modal
+            width={800}
+            maskClosable={false}
+            form={this.props.form}
+            visible={this.state.groupShow}
+            onCancel={() => { this.setState({ groupShow: false }) }}
+            onOk={this.handleSubmit.bind(this)}
+          >
+            <div style={{ padding: '55px  60px 30px 0' }}>
+              <Form layout={'inline'}>
+                <FormItem
+                  style={{ width: "100%" }}
+                  {...formItemLayout}
+                  label="群发OPENID:"
+                >
+                  {getFieldDecorator('openIdList', {
+                    rules: [{ required: false, whitespace: true, }],
+                  })(
+                    <TextArea
+                      autosize={{ minRows: 4, maxRows: 14 }}
+                      onChange={this.groupChange.bind(this, 'openIdList')}
+                      placeholder='请输入至少两个OPENID，用【逗号】或【回车符】进行分隔~' />
+                  )}
+                </FormItem>
+              </Form>
+            </div>
+          </Modal>
+          : ""}
+
+
+
 
         {/* 预览 */}
         {this.state.drShow

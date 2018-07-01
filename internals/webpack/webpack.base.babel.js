@@ -10,12 +10,12 @@ const webpack = require('webpack');
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
 // in the next major version of loader-utils.'
 process.noDeprecation = true;
-
 module.exports = (options) => ({
   entry: options.entry,
   output: Object.assign({ // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/wchat/',
+    publicPath: '/',
+    // publicPath: '/wchat/',
   }, options.output), // Merge with env dependent settings
   module: {
     rules: [
