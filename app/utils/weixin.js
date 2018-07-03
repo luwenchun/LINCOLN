@@ -34,7 +34,8 @@ class WxJSHandler {
         let url = SERVER_BASE_PATH.split('wx'),
             nonceStr,
             timestamp;
-            url = url[0] ? url[0] + 'wx/sharepage/getTicket' : '';
+            // url = url[0] ? url[0] + 'wx/sharepage/getTicket' : '';
+            url='http://carowner.yonyouauto.com/wx/sharepage/getTicket';
             nonceStr = Helper.createNonceStr();
             timestamp = Math.floor(new Date().getTime() / 1000);
 
