@@ -4,7 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const TransferWebpackPlugin = require('transfer-webpack-plugin');
+
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
@@ -71,6 +71,7 @@ module.exports = (options) => ({
           },
         ],
       },
+      
       {
         test: /\.html$/,
         use: 'html-loader',
@@ -90,6 +91,9 @@ module.exports = (options) => ({
       },
     ],
   },
+  node:{
+    fs:"empty"
+  },
   plugins: options.plugins.concat([
     new webpack.ProvidePlugin({
       // make fetch available
@@ -105,9 +109,6 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
-    new TransferWebpackPlugin([
-      { from: path.join(__dirname, './../../public') }
-    ], path.resolve(__dirname, "/"))
   ]),
   resolve: {
     modules: ['app', 'node_modules'],

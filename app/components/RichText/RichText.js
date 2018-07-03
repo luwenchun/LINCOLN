@@ -54,22 +54,21 @@ class RichText extends Component {
       multiPicModalVisible: false,
       fileList: [],
       toolbarOpts: {
-        options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'image', 'remove', 'history', 'emoji'],
+        options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'image', 'remove', 'history'],
         inline: { inDropdown: false },
         list: { inDropdown: false },
         textAlign: { inDropdown: false },
         image: { uploadCallback: this.uploadImageCallBack.bind(this), previewImage: true, alt: { present: false, mandatory: false } },
         link: { inDropdown: false },
         history: { inDropdown: false },
-        emoji: { inDropdown: false },
 
       },
       uploadedImages: [],
-      lineHeight: 24,
     };
 
     this.handleMutlUploadChange.bind(this)
     this.beforeUpload.bind(this)
+
 
 
 
@@ -89,11 +88,12 @@ class RichText extends Component {
         xhr.open('POST', `${uploadUrl}`);
         xhr.withCredentials = true;
         const data = new FormData();
-        data.append('file', file);
+        data.append('photo', file);
         xhr.send(data);
         xhr.addEventListener('load', () => {
           const response = JSON.parse(xhr.responseText);
-          const imageLink = response['data'];
+          const imageLink = response['data']['url'];
+          // debugger;
           const linkResponse = { ...response, ...{ data: { link: imageLink } } };
           // console.log('linkResponse====', linkResponse)
           resolve(linkResponse);
@@ -101,7 +101,6 @@ class RichText extends Component {
         xhr.addEventListener('error', () => {
           const error = xhr.responseText && xhr.responseText.length ? JSON.parse(xhr.responseText) : '';
           reject(error);
-          message.error('图片上传失败！')
         });
       }
     );
@@ -128,7 +127,7 @@ class RichText extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (typeof nextProps.defaultValue === 'undefined' && initCount) {
-      initCount = !nextProps.defaultValue.length;
+      initCount = false
       this.setState({
         editorState: EditorState.createEmpty()
       })
@@ -219,21 +218,21 @@ class RichText extends Component {
     const { uploadUrl } = this.state
     const { fileList } = info
     const isDone = this.checkUploadDone(fileList)
+
     if (isDone) {
+
       uploadLimit = true
       const tempImages = [...this.state.uploadedImages]
       let imgURLAsArr = []
       fileList.map((item, index) => {
-        if (item['response']['status'] == '302') {
-          window.top.location.href = item['response']['location'];
-        }
+        // debugger;
         const path = item['response']['data']
-        imgURLAsArr.push({ uid: item['uid'], url: path });
+        imgURLAsArr.push({ uid: item['uid'], url: path.url });
 
       })
 
       this.setState({
-        uploadedImages: [...tempImages, ...imgURLAsArr],
+        uploadedImages: [...tempImages, ...imgURLAsArr]
       }, () => {
         // console.log('-----current_images--->',this.state.uploadedImages)
       })
@@ -312,7 +311,7 @@ class RichText extends Component {
   render() {
     const { handleMutlUploadChange, setMultiPicModalVisible, handlePreview, onRemoveUploaded, handleMutlConfirm, beforeUpload } = this
     const { getFieldDecorator } = this.props.form
-    const { editorState, isRenderEditor, toolbarOpts, fileList, uploadUrl, lineHeight } = this.state;
+    const { editorState, isRenderEditor, toolbarOpts, fileList, uploadUrl } = this.state;
 
 
 
@@ -335,7 +334,6 @@ class RichText extends Component {
       <div>
         {isRenderEditor
           ? <Editor
-            editorStyle={{ lineHeight: "100%" }}
             editorState={editorState}
             wrapperClassName={'dmc-editor-wrapper'}
             editorClassName={'dmc-editor'}
@@ -344,16 +342,16 @@ class RichText extends Component {
               locale: 'zh',
             }}
             toolbar={toolbarOpts}
-          // toolbarCustomButtons={[genPictureBtn()]}
+            toolbarCustomButtons={[genPictureBtn()]}
           />
           : null
         }
 
         <div>
           <Modal
-            title="图片上传"
+            title="批量图片上传"
             wrapClassName={'multi-picture-wrapper'}
-            width={'400px'}
+            width={'80%'}
             visible={this.state.multiPicModalVisible}
             onOk={() => handleMutlConfirm()}
             onCancel={() => setMultiPicModalVisible(false)}
@@ -367,11 +365,12 @@ class RichText extends Component {
                     getValueFromEvent: this.normFile,
                   })(
                     <Upload
+                      name="photo"
                       action={uploadUrl}
                       listType="picture-card"
                       showUploadList={{ showPreviewIcon: false }}
                       supportServerRender={true}
-                      multiple={false}
+                      multiple={true}
                       beforeUpload={beforeUpload}
                       onPreview={handlePreview}
                       onChange={handleMutlUploadChange}

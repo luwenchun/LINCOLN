@@ -24,7 +24,7 @@ import App from 'containers/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
-import Sidebar from './components/Sidebar';
+
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-webpack-loader-syntax */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
@@ -67,26 +67,15 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
-let visible = location.host === 'localhost:3000';
-try {
-  if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-    visible = !1;
-  }
-} catch (error) { }
-
-
 
 const render = (messages) => {
   ReactDOM.render(
+
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
           <LocaleProvider locale={zhCN}>
-            {visible
-              ? <Sidebar history={history}>
-                <App history={history} />
-              </Sidebar>
-              : <App history={history} />}
+            <App history={history}/>
           </LocaleProvider>
         </ConnectedRouter>
       </LanguageProvider>

@@ -18,6 +18,7 @@ const apis = [
     { "id": "wx_getAllInlineChats", "url": "chat/wx/wx_getAllInlineChats", "format": false },
     { "id": "wx_chatLogin", "url": "chat/wx/wx_chatLogin", "format": false },
     { "id": "wx_changeChatForUser", "url": "chat/wx/wx_changeChatForUser", "format": false },
+
 ];
 
 let curentText = {
@@ -580,7 +581,7 @@ export default class messages extends React.Component {
                 } else if (result.returnFlag === 0) {
                     Toast(result.errorMsg);
                     _this.props.over(_this.props.target.userId);
-                } else if (result.returnFlag === 302 || result.returnFlag === 303) {
+                } else if (result.returnFlag === 302) {
                     Toast(result.errorMsg);
                 }
                 isSend = false;
@@ -791,7 +792,7 @@ export default class messages extends React.Component {
                         }
                         _this.props.newMsg(obj);
 
-                    } else if (res.returnFlag == 302 || res.returnFlag == 303) {
+                    } else if (res.returnFlag == 302) {
                         Toast(result.errorMsg);
                     } else {
                         Toast(result.errorMsg);

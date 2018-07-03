@@ -3,6 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
+import HomePage from 'containers/HomePage/Loadable';
 // import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import DriveList from 'containers/drive/drive.list';
@@ -20,8 +21,8 @@ import CDriveRegister from 'containers/cdrive/drive.register';
 import CDriveFeedbackList from 'containers/cdrive/drive.feedback.list';
 
 import Chat from 'containers/chat/Loadable';
-import News from 'containers/news/Loadable';
 import MaterialList from 'containers/materialList/Loadable';
+import News from 'containers/news/Loadable';
 
 const AppWrapper = styled.div`
   // max-width: calc(768px + 16px * 2);
@@ -65,10 +66,10 @@ export default function App() {
         {/* PC后台 */}
         <Route path="/saicui/chat" component={Chat} alt='在线客服'/>
         <Route path="/saicui/materialList" component={MaterialList}  alt='图文素材管理'/>
-        <Route path="/saicui/news" component={News}  alt='资讯Demo'/>
+        <Route path="/saicui/news" component={News}  alt='s'/>
 
 
-        <Route exact path="/" component={NotFoundPage} />
+        <Route exact path="/" component={HomePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
 
