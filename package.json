@@ -1,10 +1,10 @@
 {
-  "name": "ui-admin",
+  "name": "LINCOLN",
   "version": "1.0.1",
-  "description": "admin",
+  "description": "LINCOLN",
   "repository": {
     "type": "git",
-    "url": "http://dev-pv.saicmotor.com/wangdingliang/ui-admin.git"
+    "url": "https://github.com/top319VIP/LINCOLN.git"
   },
   "engines": {
     "npm": ">=3",
@@ -306,6 +306,7 @@
     "sass-loader": "^6.0.7",
     "shelljs": "0.7.7",
     "style-loader": "0.18.1",
+    "transfer-webpack-plugin": "^0.1.4",
     "url-loader": "0.5.8",
     "webpack": "3.5.5",
     "webpack-dev-middleware": "1.11.0",
