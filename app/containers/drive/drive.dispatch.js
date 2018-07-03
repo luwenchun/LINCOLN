@@ -4,9 +4,9 @@
 
 import React from 'react';
 import moment from 'moment';
-import Layout from '../../components/Layout';
+// import Layout from '../../components/Layout';
 import Http from '../../utils/http'
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Flex, Toast, Picker, DatePicker, InputItem, WhiteSpace, WingBlank, List, TextareaItem, Button } from 'antd-mobile';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import disSheet from './style/drive.dispatch.scss';
@@ -348,19 +348,19 @@ class DriveDispatch extends React.Component {
 
 }
 
-const DriveDispatchComp = withStyles(disSheet)(DriveDispatch);
+// const DriveDispatchComp = withStyles(disSheet)(DriveDispatch);
 
-function action({ path, query, hash }) {
-  const userInfo = query;
-  return {
-    chunks: ['drive.dispatch'],
-    title,
-    component: (
-      <Layout hide={true}>
-        <DriveDispatchComp user={userInfo} />
-      </Layout>
-    ),
-  };
-}
+// function action({ path, query, hash }) {
+//   const userInfo = query;
+//   return {
+//     chunks: ['drive.dispatch'],
+//     title,
+//     component: (
+//       <Layout hide={true}>
+//         <DriveDispatchComp user={userInfo} />
+//       </Layout>
+//     ),
+//   };
+// }
 
-export default action;
+export default DriveDispatch;

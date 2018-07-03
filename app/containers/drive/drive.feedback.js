@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import Layout from '../../components/Layout';
+// import Layout from '../../components/Layout';
 import Http from '../../utils/http'
 import PropTypes from 'prop-types';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -200,4 +200,4 @@ function action({ path, query, hash }) {
   };
 }
 
-export default action;
+export default DriveFeedback;

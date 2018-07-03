@@ -9,6 +9,14 @@ import DriveList from 'containers/drive/drive.list';
 import DriveDetail from 'containers/drive/drive.detail';
 import DriveAdd from 'containers/drive/drive.add';
 import Complete from 'containers/drive/complete';
+import DriveDoing from 'containers/drive/drive.doing';
+import DriveDispatch from 'containers/drive/drive.dispatch';
+import Resource from 'containers/drive/resource';
+import DriveFeedback from 'containers/drive/drive.feedback';
+
+
+
+
 
 import CDriveAdd from 'containers/cdrive/drive.add';
 import CDriveMap from 'containers/cdrive/drive.map';
@@ -48,10 +56,18 @@ export default function App() {
       <Switch>
         
         {/* 微信公众平台 */}
+
         <Route path="/wchat/drive" component={DriveList} />
         <Route path="/wchat/driveDetail" component={DriveDetail} />
         <Route path="/wchat/driveAdd" component={DriveAdd} />
         <Route path="/wchat/complete" component={Complete} />
+        <Route path="/wchat/drivedispatch" component={DriveDispatch} />
+        <Route path="/wchat/drivedoing" component={DriveDoing} />
+        <Route path="/wchat/resource" component={Resource} />
+        <Route path="/wchat/drivefeedback" component={DriveFeedback} />
+
+
+
 
         {/* 微信C端 */}
         <Route path="/wchat/cdriveAdd" component={CDriveAdd} />
