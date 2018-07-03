@@ -580,7 +580,9 @@ export default class messages extends React.Component {
                 } else if (result.returnFlag === 0) {
                     Toast(result.errorMsg);
                     _this.props.over(_this.props.target.userId);
-                } else if (result.returnFlag === 302 || result.returnFlag === 303) {
+                } else if (result.returnFlag === 303) {
+                    alert(result.errorMsg);
+                } else if (result.returnFlag === 302) {
                     Toast(result.errorMsg);
                 }
                 isSend = false;
@@ -791,7 +793,9 @@ export default class messages extends React.Component {
                         }
                         _this.props.newMsg(obj);
 
-                    } else if (res.returnFlag == 302 || res.returnFlag == 303) {
+                    } else if (result.returnFlag === 303) {
+                        alert(result.errorMsg);
+                    } else if (result.returnFlag === 302) {
                         Toast(result.errorMsg);
                     } else {
                         Toast(result.errorMsg);
