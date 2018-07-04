@@ -24,6 +24,17 @@ $font-14: .58rem;
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
   }
+  .tag-container{
+    display: flex;
+    padding-top: 9px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .tag-container > div {
+    margin-left: 9px;
+    margin-bottom: 9px;
+  }
+
 
 .wrap {
     width: 100%;

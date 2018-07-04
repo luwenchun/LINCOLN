@@ -13,6 +13,7 @@ import DriveDoing from 'containers/drive/drive.doing';
 import DriveDispatch from 'containers/drive/drive.dispatch';
 import Resource from 'containers/drive/resource';
 import DriveFeedback from 'containers/drive/drive.feedback';
+import DriveConfirm from 'containers/drive/drive.confirm';
 
 
 
@@ -65,6 +66,7 @@ export default function App() {
         <Route path="/wchat/drivedoing" component={DriveDoing} />
         <Route path="/wchat/resource" component={Resource} />
         <Route path="/wchat/drivefeedback" component={DriveFeedback} />
+        <Route path="/wchat/driveconfirm" component={DriveConfirm} />
 
 
 
