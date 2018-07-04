@@ -4,19 +4,22 @@
  */
 
 
- .pageContent{
+ .sadebarContent{
     width: 100%;
     height: 100%;
-
-    .page-cont{
+    .Content{
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
-        left: 180px;
      }
-    
-    .page-sidebar {
+    .contShow{
+        left: 180px;
+    }
+    .contHien{
+        left: 80px;
+    }
+    .sidebar{
         position: absolute;
         width: 180px;
         bottom: 0;
@@ -24,6 +27,12 @@
         max-height:none !important;
         float: left;
         background-color:#001529;
-        overflow: auto;
+        overflow: auto;        
+    }
+    .barShow {
+        width: 180px;
+     }
+    .barHiden{
+        width: 80px;
      }
  }
