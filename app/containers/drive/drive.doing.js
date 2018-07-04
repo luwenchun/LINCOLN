@@ -286,12 +286,12 @@ class DriveDoing extends React.Component {
               <div className={'rc'}>{this.state.detailInfo['address']}</div>
             </div>
 
-            <div className={'row'}>
+            {/* <div className={'row'}>
               <div className={'rt'}>预约人：</div>
               <div className={'rc'}>{this.state.detailInfo['userName']+','+1}</div>
-            </div>
+            </div> */}
             
-            <div className={'row'}>
+            {/* <div className={'row'}>
               <div className={'rt'}>联系电话：</div>
               <div className={'rc'}>{this.state.detailInfo['statusName']=="待接单"?"接单后显示详情":this.state.detailInfo['userPhone']}</div>
              
@@ -305,6 +305,38 @@ class DriveDoing extends React.Component {
 
 
              
+          </div> */}
+           <div className={'row'}>
+              <div className={'rt'}>预约人：</div>
+              <div className={'rc'}>{this.state.detailInfo['userName']+','+this.state.detailInfo['appellation']}</div>
+            </div>
+            
+            <div className={'row'}>
+              <div className={'rt'}>联系电话：</div>
+              <div className={'rc'}>{this.state.detailInfo['statusName']=="待接单"?"接单后显示详情":this.state.detailInfo['userPhone']}</div>
+              
+              <div className={'row'}>
+              <div className={'rt'}>标签：</div>
+              <div className={'rc'}>{this.state.detailInfo['userName']+','+1}</div>
+            </div>
+
+                <div className={'row'}>
+              <div className={'rt'}>备注：</div>
+              <div className={'rc'}>
+              {this.state.detailInfo['remark']==""?"-":this.state.detailInfo['remark']}
+             
+              </div>
+            </div>
+
+         <div className={'row'}>
+              <div className={'rt'}>车辆：</div>
+              <div className={'rc'}>
+             
+               {this.state.detailInfo['carTypeName']}{this.state.detailInfo['licenseNo']}
+            
+              </div>
+            </div>
+
               <div className={'toolbox'}>
                 <button type="button" className={'btn-primary'}  onClick={this.btnAction.bind(this,'detail')}>扫描二维码完成试驾</button>
                 {/* <button type="button" className={'btn-primary'} style={{width:150}} onClick={this.btnAction.bind(this,'detail')}>立即接单</button> */}
@@ -313,10 +345,9 @@ class DriveDoing extends React.Component {
 
            
 
-          </div>
         </div>
       </div>
-
+</div>
     );
   }
  
