@@ -185,7 +185,7 @@ class DriveList extends React.Component {
           <div className={'header'}>
             <span>{obj['applyTime']}</span>
             <span className={'status'}>{obj['statusName']}</span>
-
+           
           </div>
           <div className={'content'}>
 
@@ -216,12 +216,15 @@ class DriveList extends React.Component {
 
             <div className={'row'}>
               <div className={'rt'}>联系电话：</div>
-              <div className={'rc'}>{obj['userPhone']}</div>
+              <div className={'rc'}>{(obj['statusName']=="待接单")?'接单后显示详情':obj['userPhone']}
               <div className={'toolbox'}>
-                <button type="button" className={'btn-primary'} onClick={this.btnAction.bind(this, obj)}>详情</button>
+                <button type="button" className={'btn-primary'} style={{width:70}} onClick={this.btnAction.bind(this, obj)}>详情</button>
+              </div>
               </div>
             </div>
 
+
+           
           </div>
         </div>
       );
