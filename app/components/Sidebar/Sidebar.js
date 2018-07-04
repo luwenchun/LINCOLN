@@ -12,18 +12,20 @@ const SubMenu = Menu.SubMenu;
 class Sidebar extends React.Component {
   rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
   state = {
+    isLogin: false,
     collapsed: false,
     openKeys: ['sub1'],
     header: [{ icon: 'home', name: '首页' }],
+    history: [{ icon: 'home', name: '首页', selected: true, router: '/', key: 'A-A' }],
     menuData: [
       {
         key: 'sub1',
         icon: 'appstore',
         modeName: '管理版块',
         children: [
-          { icon: '', router: 'chat', childrenName: '在线客服' },
-          { icon: '', router: 'materialList', childrenName: '图文素材管理' },
-          { icon: '', router: 'news', childrenName: 'Demo资讯' },
+          { icon: 'customer-service', router: '/saicui/chat', childrenName: '在线客服' },
+          { icon: 'profile', router: '/saicui/materialList', childrenName: '图文素材管理' },
+          { icon: 'table', router: '/saicui/news', childrenName: 'Demo资讯' },
         ]
       }
     ],
@@ -46,24 +48,69 @@ class Sidebar extends React.Component {
     }
   }
 
-  goRouter = (path, i, j) => {
+  goRouter = (path, key) => {
+    let index;
+    let header = [...this.state.header];
     const { menuData } = { ...this.state };
-    const header = [...this.state.header];
-    header[1] = {
-      icon: menuData[i]['icon'],
-      name: menuData[i]['modeName']
-    };
-    header[2] = {
-      icon: menuData[i]['children'][j]['icon'],
-      name: menuData[i]['children'][j]['childrenName']
-    };
-    this.props.history.push('/saicui/' + path);
-    this.setState({ header });
+    const history = [...this.state.history];
+    const i = Number(key.split('-')[0]);
+    const j = Number(key.split('-')[1]);
+
+
+    history.forEach((e, i) => {
+      if (e.key == key) index = i;
+      e.selected = !1
+    })
+    if (key == 'A-A') {
+      header = [{ icon: 'home', name: '首页' }];
+      history[0]['selected'] = true;
+    } else {
+      header[1] = {
+        icon: menuData[i]['icon'],
+        name: menuData[i]['modeName']
+      };
+      header[2] = {
+        icon: menuData[i]['children'][j]['icon'],
+        name: menuData[i]['children'][j]['childrenName']
+      };
+
+
+
+      if (index) {
+        history[index]['selected'] = true;
+      } else {
+        history.push({
+          icon: menuData[i]['children'][j]['icon'],
+          name: menuData[i]['children'][j]['childrenName'],
+          router: menuData[i]['children'][j]['router'],
+          selected: true,
+          key,
+        })
+      }
+
+    }
+
+    this.props.history.push(path);
+    this.setState({ header, history });
+  }
+
+
+
+  goLogUot() { }
+
+  goLogIn() { }
+
+  closeRouter(i) {
+    if (!1) return !1;
+    const history = [...this.state.history];
+    history.splice(i, 1);
+    history[history.length - 1].selected = !0;
+    this.setState({ history })
   }
 
   render() {
-    const { goRouter, toggleCollapsed, onOpenChange } = this;
-    const { collapsed, openKeys, menuData, header } = { ...this.state };
+    const { goRouter, closeRouter, toggleCollapsed, onOpenChange, goLogUot, goLogIn } = this;
+    const { collapsed, openKeys, menuData, header, history, isLogin } = { ...this.state };
     return (
       <div className='sadebarContent' role="sidebar">
         <div className={'sidebar ' + (collapsed ? ` barHiden` : ` barShow`)}>
@@ -81,7 +128,10 @@ class Sidebar extends React.Component {
               <SubMenu key={e.key} title={<span><Icon type={e.icon} /><span>{e.modeName}</span></span>}>
                 {e.children.map((v, j) => (
                   <Menu.Item key={i + '-' + j}>
-                    <a onClick={() => { goRouter(v.router, i, j) }}>{v.childrenName}</a>
+                    <a onClick={() => { goRouter(v.router, i + '-' + j) }}>
+                      {v.icon && v.icon.length ? <Icon type={v.icon} /> : ''}
+                      {v.childrenName}
+                    </a>
                   </Menu.Item>
                 ))}
               </SubMenu>
@@ -92,18 +142,41 @@ class Sidebar extends React.Component {
           className={'Content ' + (collapsed ? ` contHien` : ` contShow`)}
           onClick={() => { this.setState({ collapsed: true }) }}>
           <div className='routerHeader'>
-            {header.map(e => (
-              <span>
-                {e.icon && e.icon.length ? <Icon type={e.icon} /> : ''}
-                {e.name}<Icon type="double-right" />
-              </span>
-            ))}
+            <div className='showHeader'>
+              {header.map(e => (
+                <span>
+                  {e.icon && e.icon.length ? <Icon type={e.icon} /> : ''}
+                  {e.name}<Icon type="double-right" />
+                </span>
+              ))}
+
+              {isLogin
+                ? <div>
+                  <span>
+                    <img src="/defualtUser.jpg" />
+                  </span>
+                  <Icon type="logout" onClick={goLogUot.bind(this)} />
+                </div>
+                : <div>
+                  <Icon type="login" onClick={goLogIn.bind(this)} />
+                </div>}
+            </div>
+
+            <div className='selectHeader'>
+              {history.map((e, i) => (
+                <span className={e.selected ? 'routerSelect' : ''}>
+                  <Icon type={e.icon} />
+                  <span onClick={() => { goRouter(e.router, e.key) }}>{e.name}</span>
+                  <Icon type="poweroff" onClick={closeRouter.bind(this, i)} />
+                </span>
+              ))}
+            </div>
           </div>
           <div style={{ position: 'relative' }}>
             {this.props.children}
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
