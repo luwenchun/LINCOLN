@@ -1,7 +1,7 @@
 import React from 'react';
 import Http from './../../../utils/http';
 import '../style/messages.scss';
-import { Spin } from 'antd';
+import { Spin, Modal } from 'antd';
 import Often from './oftenText';
 import Emoji from './Emoji';
 import { expression, Toast } from '../../../components/common/comn';
@@ -135,9 +135,13 @@ export default class messages extends React.Component {
                         }
                     });
 
-                    JIM.onDisconnect(() => { 
+                    JIM.onDisconnect(() => {
                         alert('异常断线，请重新登录！');
-                        history.go(0);
+                        // Modal.error({
+                        //     title: '异常断线，请重新登录！',
+                        //     content: '',
+                        // });
+                        window.history.go(0);
                     });
 
 
@@ -156,7 +160,7 @@ export default class messages extends React.Component {
         clearTimeout(CountdownTimeout);
         CountdownTimeout = setTimeout(() => {
             alert('请重新接入在线客服！');
-            history.go(0);
+            window.history.go(0);
         }, this.state.Countdown)
     }
 
@@ -582,6 +586,11 @@ export default class messages extends React.Component {
                     _this.props.over(_this.props.target.userId);
                 } else if (result.returnFlag === 303) {
                     alert(result.errorMsg);
+                    window.history.go(0);
+                    // Modal.error({
+                    //     title: result.errorMsg,
+                    //     content: '',
+                    // });
                 } else if (result.returnFlag === 302) {
                     Toast(result.errorMsg);
                 }
@@ -795,6 +804,11 @@ export default class messages extends React.Component {
 
                     } else if (result.returnFlag === 303) {
                         alert(result.errorMsg);
+                        window.history.go(0);
+                        // Modal.error({
+                        //     title: result.errorMsg,
+                        //     content: '',
+                        // });
                     } else if (result.returnFlag === 302) {
                         Toast(result.errorMsg);
                     } else {
