@@ -101,11 +101,15 @@ class Sidebar extends React.Component {
   goLogIn() { }
 
   closeRouter(i) {
-    if (!1) return !1;
+    if (!i) return !1;
+    let len;
     const history = [...this.state.history];
     history.splice(i, 1);
-    history[history.length - 1].selected = !0;
-    this.setState({ history })
+    len = history.length - 1;
+    history[len].selected = !0;
+    this.setState({ history }, () => {
+      this.goRouter(history[len]['router'], history[len]['key']);
+    });
   }
 
   render() {
@@ -120,7 +124,7 @@ class Sidebar extends React.Component {
           <Menu
             mode="inline"
             theme="dark"
-            openKeys={openKeys}
+            defaultOpenKeys={openKeys}
             inlineCollapsed={collapsed}
             onOpenChange={onOpenChange}
           >
