@@ -35,4 +35,20 @@
     .barHiden{
         width: 80px;
      }
+     .routerHeader{
+        padding-left: 20px;
+        span{
+            line-height: 48px;
+            font-size: 18px;
+        }
+        span>i:first-of-type{
+            margin-right: 3px;
+        }
+        span>i:last-of-type{
+            margin: 0 10px;
+        }
+        span:last-of-type> i:last-of-type{
+            display: none;
+        }
+     }
  }

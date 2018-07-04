@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
   state = {
     collapsed: false,
     openKeys: ['sub1'],
+    header: [{ icon: 'home', name: '首页' }],
     menuData: [
       {
         key: 'sub1',
@@ -45,13 +46,24 @@ class Sidebar extends React.Component {
     }
   }
 
-  goRouter = (path) => {
-    this.props.history.push('/saicui/' + path)
+  goRouter = (path, i, j) => {
+    const { menuData } = { ...this.state };
+    const header = [...this.state.header];
+    header[1] = {
+      icon: menuData[i]['icon'],
+      name: menuData[i]['modeName']
+    };
+    header[2] = {
+      icon: menuData[i]['children'][j]['icon'],
+      name: menuData[i]['children'][j]['childrenName']
+    };
+    this.props.history.push('/saicui/' + path);
+    this.setState({ header });
   }
 
   render() {
     const { goRouter, toggleCollapsed, onOpenChange } = this;
-    const { collapsed, openKeys, menuData } = { ...this.state };
+    const { collapsed, openKeys, menuData, header } = { ...this.state };
     return (
       <div className='sadebarContent' role="sidebar">
         <div className={'sidebar ' + (collapsed ? ` barHiden` : ` barShow`)}>
@@ -69,7 +81,7 @@ class Sidebar extends React.Component {
               <SubMenu key={e.key} title={<span><Icon type={e.icon} /><span>{e.modeName}</span></span>}>
                 {e.children.map((v, j) => (
                   <Menu.Item key={i + '-' + j}>
-                    <a onClick={() => { goRouter(v.router) }}>{v.childrenName}</a>
+                    <a onClick={() => { goRouter(v.router, i, j) }}>{v.childrenName}</a>
                   </Menu.Item>
                 ))}
               </SubMenu>
@@ -79,7 +91,17 @@ class Sidebar extends React.Component {
         <div
           className={'Content ' + (collapsed ? ` contHien` : ` contShow`)}
           onClick={() => { this.setState({ collapsed: true }) }}>
-          {this.props.children}
+          <div className='routerHeader'>
+            {header.map(e => (
+              <span>
+                {e.icon && e.icon.length ? <Icon type={e.icon} /> : ''}
+                {e.name}<Icon type="double-right" />
+              </span>
+            ))}
+          </div>
+          <div style={{ position: 'relative' }}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
