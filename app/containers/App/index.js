@@ -13,6 +13,8 @@ import DriveDoing from 'containers/drive/drive.doing';
 import DriveDispatch from 'containers/drive/drive.dispatch';
 import Resource from 'containers/drive/resource';
 import DriveFeedback from 'containers/drive/drive.feedback';
+import DriveConfirm from 'containers/drive/drive.confirm';
+import DriveStartoff from 'containers/drive/drive.startoff';
 
 
 
@@ -28,7 +30,8 @@ import CDriveRegister from 'containers/cdrive/drive.register';
 import CDriveFeedbackList from 'containers/cdrive/drive.feedback.list';
 
 import Chat from 'containers/chat/Loadable';
-import News from 'containers/news/Loadable';
+// import News from 'containers/news/Loadable';
+import Drivepc from 'containers/drivepc/sublist';
 import MaterialList from 'containers/materialList/Loadable';
 
 const AppWrapper = styled.div`
@@ -64,6 +67,8 @@ export default function App() {
         <Route path="/wchat/drivedispatch" component={DriveDispatch} />
         <Route path="/wchat/drivedoing" component={DriveDoing} />
         <Route path="/wchat/resource" component={Resource} />
+        <Route path="/wchat/driveconfirm" component={DriveConfirm} />
+        <Route path="/wchat/drivestartoff" component={DriveStartoff} />
         <Route path="/wchat/drivefeedback" component={DriveFeedback} />
 
 
@@ -81,7 +86,8 @@ export default function App() {
         {/* PC后台 */}
         <Route path="/saicui/chat" component={Chat} alt='在线客服'/>
         <Route path="/saicui/materialList" component={MaterialList}  alt='图文素材管理'/>
-        <Route path="/saicui/news" component={News}  alt='资讯Demo'/>
+        {/* <Route path="/saicui/news" component={News}  alt='资讯Demo'/> */}
+        <Route path="/saicui/drivepc" component={Drivepc}  alt='预约列表'/>
 
 
         <Route exact path="/" component={NotFoundPage} />
