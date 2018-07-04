@@ -57,7 +57,7 @@ export default function App() {
         
         {/* 微信公众平台 */}
 
-        <Route path="/wchat/drive" component={DriveList} />
+        <Route path="/wchat/driveList" component={DriveList} />
         <Route path="/wchat/driveDetail" component={DriveDetail} />
         <Route path="/wchat/driveAdd" component={DriveAdd} />
         <Route path="/wchat/complete" component={Complete} />

@@ -96,7 +96,7 @@ class DriveDetail extends React.Component {
             <div className={'row'}>
               <div className={'rt'}>预约时间：</div>
               <div className={'rc'}>{this.state.detailInfo['applyTimeName']+","+this.state.detailInfo['applyTime']}
-              <button type="button" className={'btn-primary'} style={{width:90,height:30}} onClick={this.btnAction.bind(this,'detail')}>查看资源</button>
+              <button type="button" className={'btn-primary'} style={{width:90,height:34}} onClick={this.btnAction.bind(this,'detail')}>查看资源</button>
               </div>
               
             </div>
@@ -143,8 +143,8 @@ class DriveDetail extends React.Component {
 
              
               <div className={'toolbox'}>
-                <button type="button" className={'btn-primary'} style={{width:150}} onClick={this.btnAction.bind(this,'detail')}>放弃接单</button>
-                <button type="button" className={'btn-primary'} style={{width:150}} onClick={this.btnAction.bind(this,'detail')}>立即接单</button>
+                <button type="button" className={'btn-primary'} style={{width:180}} onClick={this.btnAction.bind(this,'detail')}>放弃接单</button>
+                <button type="button" className={'btn-primary'} style={{width:180}} onClick={this.btnAction.bind(this,'detail')}>立即接单</button>
               </div>
             </div>
 
