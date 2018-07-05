@@ -1,0 +1,237 @@
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+.dFeto::-webkit-scrollbar  
+{  
+    width: 0px;  
+    height: 0px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.dFeto::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);  
+    border-radius: 0px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.dFeto::-webkit-scrollbar-thumb  
+{  
+    border-radius: 0px;  
+    -webkit-box-shadow: inset 0 0 1.5px rgba(0,0,0,.3);  
+    background-color: #C0C0C0;  
+}  
+
+.dFeto{
+    margin: 0 auto;
+    overflow-y: scroll;
+    ul{
+        overflow-x: hidden;
+        li {
+            padding: 20px;
+            // margin-bottom: 10px;
+            line-height: 1rem;
+            overflow: hidden;
+            h2 {
+                font-family: PingFangSC-Regular;
+                font-size: 18px;
+                color: #353535;
+                letter-spacing: 0;
+                line-height: 26px;
+            }
+        }
+        li:nth-child(2) {
+            overflow: hidden;
+            div {
+                line-height: 1rem;
+                float: left;
+                .mas {
+                    display: block;
+                    font-family: HelveticaNeue;
+                    color: black!important;
+                    font-size: .65rem;
+                    span {
+                        display: inline-block;
+                        width: 0.7rem;
+                        height: 0.7rem;
+                    }
+                    div {
+                        margin-top: 0.5rem;
+                    }
+                }
+                .mass {
+                    float: left;
+                }
+                .masd {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 5px;
+                    margin-top: -2px;
+                    span {
+                        width: 3rem;
+                        height: 3rem;
+                        margin-right: 0.2rem;
+                        margin-bottom: 0.2rem;
+                        float: left;
+                        margin-top: 0.2rem;
+                        border-radius: 10px;
+                        background: gray;
+                        img {
+                            display: inline-block;
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
+                    img {
+                        vertical-align: middle;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            div:nth-of-type(3) {
+                line-height: 1rem;
+                float: right;
+                text-align: right;
+                font-family: PingFangTC-Regular;
+                color: black;
+                span:first-child {
+                    display: inline-block;
+                    padding: 0 0.1rem;
+                    font-size: .65rem;
+                }
+                
+                span:last-child {
+                    display: inline-block;
+                    /* background-image: linear-gradient(-139deg, .FA7257 0%, .F94342 100%); */
+                    padding: 0 5px 0 0;
+                    text-align: center;
+                    /* border-radius: 2px; */
+                    font-size: .65rem;
+                    min-width: 30px;
+                    vertical-align: middle;
+                }
+                img {
+                    width: .6rem;
+                    height: .6rem;
+                    vertical-align: middle;
+                }
+            }
+            div:first-child {
+                width: 1.536rem;
+                height: 1.536rem;
+                margin-right: 10px;
+                margin-top: 5px;
+                border-radius: .8rem;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            div:nth-child(2) {
+                span{
+                    vertical-align: middle;
+                    color: rgba(41, 47, 58, .5);
+                    line-height: 1rem;
+                }
+                span:last-of-type{
+                    display: inline-block;
+                    float: left;
+                }
+            }
+        }
+    }
+
+
+    .newsSummary{
+        padding: 10px;
+        >img{
+            float: left;
+            width: .4rem;
+            margin: .4rem;
+        }
+        >div{
+            padding: 20px 30px 10px 30px;
+            background: #EEF3FF;
+            font-family: PingFangSC-Regular;
+            line-height: 1rem;
+        }
+    }
+}
+
+
+.dFeto ul .logo {
+    width: 150px;
+    height: 150px;
+}
+
+.dFeto ul .logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.dFeto ul li:last-child p:first-child {
+    text-indent: 1em;
+}
+
+.dFeto ul li:last-child div {
+    /*     width:15rem;
+height:8rem; */
+    margin-top: 1rem;
+}
+
+.dFeto ul li:last-child div img {
+    width: 100%;
+    height: 100%;
+}
+.dFeto .dRcontent{
+    border-radius: 2px;
+    
+    >div{
+        margin: 0!important;
+        padding: .5rem 0;
+    }
+    
+}
+.dRcontent img {
+    max-width: 100% !important;
+    margin: 10px 0;
+    padding: 0px;
+    border-radius: 2px;
+}
+.dRcontent p, .dRcontent p span{
+    line-height: 130%;
+}
+
+.times {
+    color: rgba(41, 47, 58, .5);
+    font-size: 13px;
+    display: inline-block;
+    float: left;
+    /*  transform: translateY(-3px); */
+    vertical-align: middle;
+}
+
+.times::after{
+    content: "";
+    display: inline-block;
+    background: #ccc;
+    width: 1px;
+    height: 12px!important;
+    vertical-align: middle;
+    margin: 0 10px;
+    
+}
+.tit img {
+    width: 100%;
+}
+
+.zixuntitle{
+    font-family: PingFangSC-Regular;
+    font-size: 18px;
+    color: #353535;
+    letter-spacing: 0;
+    line-height: 26px;
+}
+

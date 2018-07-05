@@ -30,7 +30,7 @@ import CDriveRegister from 'containers/cdrive/drive.register';
 import CDriveFeedbackList from 'containers/cdrive/drive.feedback.list';
 
 import Chat from 'containers/chat/Loadable';
-// import News from 'containers/news/Loadable';
+import News from 'containers/news/Loadable';
 import Drivepc from 'containers/drivepc/sublist';
 import MaterialList from 'containers/materialList/Loadable';
 
@@ -86,7 +86,7 @@ export default function App() {
         {/* PC后台 */}
         <Route path="/saicui/chat" component={Chat} alt='在线客服'/>
         <Route path="/saicui/materialList" component={MaterialList}  alt='图文素材管理'/>
-        {/* <Route path="/saicui/news" component={News}  alt='资讯Demo'/> */}
+        <Route path="/saicui/news" component={News}  alt='资讯Demo'/>
         <Route path="/saicui/drivepc" component={Drivepc}  alt='预约列表'/>
 
 

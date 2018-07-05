@@ -4,13 +4,14 @@
  */
 
 import React from 'react';
-import { Menu, Icon, Button } from 'antd'
+import { Layout, Menu, Icon } from 'antd'
 import './Sidebar.scss';
 
+const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class Sidebar extends React.Component {
-  rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+  rootSubmenuKeys = ['sub0', 'sub1', 'sub2', 'sub4'];
   state = {
     isLogin: false,
     collapsed: false,
@@ -19,15 +20,28 @@ class Sidebar extends React.Component {
     history: [{ icon: 'home', name: '首页', selected: true, router: '/', key: 'A-A' }],
     menuData: [
       {
+        key: 'sub0',
+        icon: 'user',
+        modeName: '用户管理',
+        children: []
+      },
+      {
         key: 'sub1',
         icon: 'appstore',
         modeName: '管理版块',
         children: [
           { icon: 'customer-service', router: '/saicui/chat', childrenName: '在线客服' },
           { icon: 'profile', router: '/saicui/materialList', childrenName: '图文素材管理' },
+          { icon: 'car', router: '/saicui/drivepc', childrenName: '试驾预约' },
           { icon: 'table', router: '/saicui/news', childrenName: 'Demo资讯' },
         ]
-      }
+      },
+      {
+        key: 'sub2',
+        icon: 'setting',
+        modeName: '系统设置',
+        children: []
+      },
     ],
   }
 
@@ -117,69 +131,72 @@ class Sidebar extends React.Component {
     const { collapsed, openKeys, menuData, header, history, isLogin } = { ...this.state };
     return (
       <div className='sadebarContent' role="sidebar">
-        <div className={'sidebar ' + (collapsed ? ` barHiden` : ` barShow`)}>
-          <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
-            <Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} />
-          </Button>
-          <Menu
-            mode="inline"
-            theme="dark"
-            defaultOpenKeys={openKeys}
-            inlineCollapsed={collapsed}
-            onOpenChange={onOpenChange}
+        <Layout style={{ minHeight: '100vh' }}>
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(collapsed) => { this.setState({ collapsed }) }}
           >
-            {menuData.map((e, i) => (
-              <SubMenu key={e.key} title={<span><Icon type={e.icon} /><span>{e.modeName}</span></span>}>
-                {e.children.map((v, j) => (
-                  <Menu.Item key={i + '-' + j}>
-                    <a onClick={() => { goRouter(v.router, i + '-' + j) }}>
-                      {v.icon && v.icon.length ? <Icon type={v.icon} /> : ''}
-                      {v.childrenName}
-                    </a>
-                  </Menu.Item>
-                ))}
-              </SubMenu>
-            ))}
-          </Menu>
-        </div>
-        <div
-          className={'Content ' + (collapsed ? ` contHien` : ` contShow`)}
-          onClick={() => { this.setState({ collapsed: true }) }}>
-          <div className='routerHeader'>
-            <div className='showHeader'>
-              {header.map(e => (
-                <span>
-                  {e.icon && e.icon.length ? <Icon type={e.icon} /> : ''}
-                  {e.name}<Icon type="double-right" />
-                </span>
-              ))}
 
-              {isLogin
-                ? <div>
+            <Menu
+              mode="inline"
+              theme="dark"
+              defaultOpenKeys={openKeys}
+              inlineCollapsed={collapsed}
+              onOpenChange={onOpenChange}
+            >
+              {menuData.map((e, i) => (
+                <SubMenu key={e.key} title={<span><Icon type={e.icon} /><span>{e.modeName}</span></span>}>
+                  {e.children.map((v, j) => (
+                    <Menu.Item key={i + '-' + j}>
+                      <a onClick={() => { goRouter(v.router, i + '-' + j) }}>
+                        {v.icon && v.icon.length ? <Icon type={v.icon} /> : ''}
+                        {v.childrenName}
+                      </a>
+                    </Menu.Item>
+                  ))}
+                </SubMenu>
+              ))}
+            </Menu>
+          </Sider>
+
+          <Layout onClick={() => { this.setState({ collapsed: true }) }}>
+            <div className='routerHeader'>
+              <div className='showHeader'>
+                {header.map(e => (
                   <span>
-                    <img src="/defualtUser.jpg" />
+                    {e.icon && e.icon.length ? <Icon type={e.icon} /> : ''}
+                    {e.name}<Icon type="double-right" />
                   </span>
-                  <Icon type="logout" onClick={goLogUot.bind(this)} />
-                </div>
-                : <div>
-                  <Icon type="login" onClick={goLogIn.bind(this)} />
-                </div>}
-            </div>
+                ))}
 
-            <div className='selectHeader'>
-              {history.map((e, i) => (
-                <span className={e.selected ? 'routerSelect' : ''}>
-                  <Icon type={e.icon} />
-                  <span onClick={() => { goRouter(e.router, e.key) }}>{e.name}</span>
-                  <Icon type="poweroff" onClick={closeRouter.bind(this, i)} />
-                </span>
-              ))}
+                {isLogin
+                  ? <div>
+                    <span>
+                      <img src="/defualtUser.jpg" />
+                    </span>
+                    <Icon type="logout" onClick={goLogUot.bind(this)} />
+                  </div>
+                  : <div>
+                    <Icon type="login" onClick={goLogIn.bind(this)} />
+                  </div>}
+              </div>
+
+              <div className='selectHeader'>
+                {history.map((e, i) => (
+                  <span className={e.selected ? 'routerSelect' : ''}>
+                    <Icon type={e.icon} />
+                    <span onClick={() => { goRouter(e.router, e.key) }}>{e.name}</span>
+                    <Icon type="poweroff" onClick={closeRouter.bind(this, i)} />
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-          <div style={{ position: 'relative' }}>
-            {this.props.children}
-          </div>
-        </div>
+            <div style={{ position: 'relative' }}>
+              {this.props.children}
+            </div>
+          </Layout >
+        </Layout >
       </div >
     );
   }
