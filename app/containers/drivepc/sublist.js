@@ -1,9 +1,10 @@
 
 import React from 'react';
+
 import { Helmet } from 'react-helmet';
 import Http from '../../utils/http';
 import {Layout} from 'antd';
-
+import { Switch, Route ,Link,NavLink} from 'react-router-dom';
 // import './style/info.scss';
 import './style/sublist.scss';
 import { Form, Row, Col, TreeSelect, Input, Select, DatePicker, TimePicker, Button, message, Table, Icon, Divider, Dropdown, Popconfirm, Modal } from 'antd';
@@ -142,14 +143,7 @@ class Info extends React.Component {
           key: 'sta',
           className:"zt",
           align:"center",
-          render: (text, record) => {
-            return (
-              <span>
-                   
-              </span>
-            )
-
-          },
+     
          
         },
         {
@@ -666,14 +660,7 @@ class Info extends React.Component {
     this.state.dataList[0].state=="未确认"?1:2
     return (
       <div className="wrap" style={{ 'padding': '5px' }}>
-        <Header style={{'background':'white',height:70}}>
-            <Icon type="home" style={{fontSize:20,color:'#6a6a6a'}}></Icon>
-            <span style={{fontSize:15,color:'#7a7a7a',"margin-right":20}}>主页</span>
-            <Icon type="right-square-o" style={{fontSize:15,color:'#6a6a6a',"margin-right":35}}></Icon>
-            <span style={{fontSize:15,color:'#7a7a7a',"margin-right":25}}>试驾预约</span>
-            <Icon type="right-square-o" style={{fontSize:15,color:'#6a6a6a',"margin-right":10}}></Icon>
-            <span style={{fontSize:15,color:'#7a7a7a'}}>试驾预约列表</span>
-          </Header>
+        
         <Helmet>
           <title>{title}</title>
           <meta name="description" content={title} />
@@ -780,7 +767,11 @@ class Info extends React.Component {
           <Row>
             <Col span={24} style={{ textAlign: 'right', paddingTop: '20px' }}>
               {/* <Button type="primary" htmlType="button" icon="search" onClick={onAction.bind(this, 'search')}>查询</Button> */}
-              <Button type="primary"  onClick={onAction.bind(this, 'search')}>新增</Button>
+                <NavLink to='/saicui/subadd'>
+                <Button type="primary"  onClick={onAction.bind(this, 'search')}>
+                  新增
+              </Button>
+              </NavLink>
               <Button type="primary"  >查询</Button>
               <Button style={{background:"#F7BB2A",color:"#fff"}}>重置</Button>
               <Button style={{background:"#12CF66",color:"#fff"}}>下载<Icon type="download" style={{"margin-left":-1}}></Icon></Button>
