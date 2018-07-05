@@ -1,6 +1,6 @@
 
 //   reset
-$BGCOLOR: #f9f9f9;
+$BGCOLOR: white;
 $RTWIDTH: 28%;
 $RCWIDTH: 72%;
 $font-12: .54rem;
@@ -30,8 +30,19 @@ $font-14: .58rem;
     height: 100%;
     overflow: auto;
     box-sizing: border-box;
-    background-color: $BGCOLOR;
+    background-color: white;
 
+    i{
+        width: 45px;
+        height: 45px;
+        position:fixed;
+        right:20px;
+        top:650px;
+        background:red;
+        background: url(../images/plus.png) no-repeat;
+        background-size: 45px auto;
+        vertical-align: middle;
+    }
     
 
     .separator{

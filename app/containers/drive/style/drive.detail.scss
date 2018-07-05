@@ -1,9 +1,9 @@
 
 //   reset
-$BGCOLOR: #f9f9f9;
+
 $RTWIDTH: 28%;
 $RCWIDTH: 72%;
-$font-12: .512rem;
+$font-12: .812rem;
 $font-14: .58rem;
   * {
     padding: 0;
@@ -41,7 +41,7 @@ $font-14: .58rem;
     height: 100%;
     overflow: auto;
     box-sizing: border-box;
-    background-color: $BGCOLOR;
+    background-color: white;
 
     
 
@@ -77,7 +77,14 @@ $font-14: .58rem;
                 font-size: $font-12;
                 font-weight: 400;
                 color: #181818;
-                
+                i{
+                    display: inline-block;
+                    width: 35px;
+                    height: 23px;
+                    background: url(../images/cf.png) no-repeat;
+                    background-size: 25px auto;
+                    vertical-align: middle;
+                }
                 .rt{
                     font-weight: 500;
                     width: $RTWIDTH;

@@ -11,6 +11,7 @@ import Ui from '../../utils/weixin';
 import Helper from '../../utils/helper';
 import HomeLink from './components/home.link';
 import {SERVER_BASE_PATH} from '../../global.config';
+import FileUploader from './components/file.upload';
 
 const skey = 'cdrive_add';
 const apis = [
@@ -431,6 +432,8 @@ class CDriveAdd extends React.Component {
                 </a>
 							</li>
             </ul>   
+        <FileUploader id={this.state.params.driveId}/>
+            
             <div className={'cdrive-bottom-text'}>
                <textarea name="desc" placeholder="请输入您的备注内容"></textarea>
                <div className={'cdrive-bottom-input'}>

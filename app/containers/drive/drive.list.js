@@ -12,6 +12,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import {SERVER_BASE_PATH} from '../../global.config';
 //import DLSheet from './style/drive.list.scss';
 import { setTimeout } from 'timers';
+import {Link,NavLink} from 'react-router-dom';
 const title = '试驾预约列表';
 
 const apis = [
@@ -181,6 +182,7 @@ class DriveList extends React.Component {
       }
 
       return (
+         <div className={'warp'}>
         <div className={'form'} key={rowID}>
           <div className={'header'}>
             <span>{obj['applyTime']}</span>
@@ -218,14 +220,19 @@ class DriveList extends React.Component {
               <div className={'rt'}>联系电话：</div>
               <div className={'rc'}>{(obj['statusName']=="待接单")?'接单后显示详情':obj['userPhone']}
               <div className={'toolbox'}>
-                <button type="button" className={'btn-primary'} style={{width:70}} onClick={this.btnAction.bind(this, obj)}>详情</button>
+                 <Link to="/wchat/drivedetail" className="DriveDetail" >
+                <button type="button" className={'btn-primary'} style={{width:70}} >详情</button>
+                </Link>
               </div>
               </div>
             </div>
 
-
-           
           </div>
+          
+        </div> 
+        <Link to="/wchat/drivedetail" className="DriveDetail" >
+        <i></i>
+        </Link>
         </div>
       );
     }; 

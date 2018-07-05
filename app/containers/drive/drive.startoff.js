@@ -546,9 +546,11 @@
 import React from 'react';
 import './style/drive.detail.scss';
 //import Layout from '../../components/Layout';
-import Http from '../../utils/http'
+import Http from '../../utils/http';
+import Ui from '../../utils/weixin';
 //import PropTypes from 'prop-types';
 // import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import FileUploader from '../cdrive/components/file.upload';
 
 import {SERVER_BASE_PATH} from '../../global.config';
 const title = '试驾预约开始';
@@ -560,13 +562,26 @@ const apis = [
 Http.setDomainUrl(SERVER_BASE_PATH);
 
 Http.setMutiApi(apis);
-
+const headers = {"access-token":"balabala"};
+let _this;
 
 class DriveStartoff extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      params: {
+        driveTypeName: '',
+        driveType: '',
+        carType: '',
+        carTypeName: '',
+        carCode : '',
+        contact: '',
+        mobile: '',
+        address: '',
+        isTermed: false,
+        driveId: ''
+      },
       detailInfo:{
           
       }
@@ -652,27 +667,6 @@ class DriveStartoff extends React.Component {
               <div className={'rt'}>试驾地址：</div>
               <div className={'rc'}>{this.state.detailInfo['address']}</div>
             </div>
-
-            {/* <div className={'row'}>
-              <div className={'rt'}>预约人：</div>
-              <div className={'rc'}>{this.state.detailInfo['userName']+','+1}</div>
-            </div> */}
-            
-            {/* <div className={'row'}>
-              <div className={'rt'}>联系电话：</div>
-              <div className={'rc'}>{this.state.detailInfo['statusName']=="待接单"?"接单后显示详情":this.state.detailInfo['userPhone']}</div>
-             
-              <div className={'row'}>
-              <div className={'rt'}>标签：</div>
-              <div className={'rc'}>{this.state.detailInfo['userName']+','+1}</div>
-            </div>
-
-           
-
-
-
-             
-          </div> */}
            <div className={'row'}>
               <div className={'rt'}>预约人：</div>
               <div className={'rc'}>{this.state.detailInfo['userName']+','+this.state.detailInfo['appellation']}</div>
@@ -729,6 +723,7 @@ class DriveStartoff extends React.Component {
               </ul>
           </div> */}
 
+        <FileUploader id={this.state.params.driveId}/>
 
               <div className={'toolbox'}>
                 <button type="button" className={'btn-primary'}  onClick={this.btnAction.bind(this,'detail')}>开始试驾</button>
