@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route ,Link,NavLink} from 'react-router-dom';
 // import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import DriveList from 'containers/drive/drive.list';
@@ -30,8 +30,10 @@ import CDriveRegister from 'containers/cdrive/drive.register';
 import CDriveFeedbackList from 'containers/cdrive/drive.feedback.list';
 
 import Chat from 'containers/chat/Loadable';
-import News from 'containers/news/Loadable';
-import Drivepc from 'containers/drivepc/sublist';
+// import News from 'containers/news/Loadable';
+import Sublist from 'containers/drivepc/sublist';
+import Subadd from 'containers/drivepc/subadd';
+import Subdep from 'containers/drivepc/subdep';
 import MaterialList from 'containers/materialList/Loadable';
 
 const AppWrapper = styled.div`
@@ -86,8 +88,10 @@ export default function App() {
         {/* PC后台 */}
         <Route path="/saicui/chat" component={Chat} alt='在线客服'/>
         <Route path="/saicui/materialList" component={MaterialList}  alt='图文素材管理'/>
-        <Route path="/saicui/news" component={News}  alt='资讯Demo'/>
-        <Route path="/saicui/drivepc" component={Drivepc}  alt='预约列表'/>
+        {/* <Route path="/saicui/news" component={News}  alt='资讯Demo'/> */}
+        <Route path="/saicui/sublist" component={Sublist}  alt='预约列表'/>
+        <Route path="/saicui/subadd" component={Subadd}  alt='预约新增'/>
+        <Route path="/saicui/subdep" component={Subdep}  alt='预约配置'/>
 
 
         <Route exact path="/" component={NotFoundPage} />
