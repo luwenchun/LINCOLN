@@ -3,22 +3,18 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Http from '../../utils/http';
 import {Layout} from 'antd';
-import PropTypes from 'prop-types';
-import moment from 'moment';
+
 // import './style/info.scss';
 import './style/sublist.scss';
 import { Form, Row, Col, TreeSelect, Input, Select, DatePicker, TimePicker, Button, message, Table, Icon, Divider, Dropdown, Popconfirm, Modal } from 'antd';
-import {Menu,Breadcrumb,Pagination} from 'antd';
+
 const {Header,Footer,Sider,Content}=Layout;
 import history from '../../utils/history';
 import Store from 'store';
 import DMCUtil from '../../utils/DMCUtil'
-import QRcode from '../../components/common/QRCode';
+// import QRcode from '../../components/common/QRCode';
 import { SERVER_BASE_PATH } from '../../global.config';
-import PushNews from './compontents/push';
-import EditNews from './compontents/edit';
-import ClipboardJS from 'clipboard/dist/clipboard.min.js';
-import Preview from '../../components/Preview/index';
+
 message.config({
   top: 400,
   duration: 2,
@@ -141,15 +137,20 @@ class Info extends React.Component {
         },
         {
           title: '状态',
-          dataIndex: 'sta',
+          dataIndex: 'state',
           width: 65,
           key: 'sta',
           className:"zt",
           align:"center",
           render: (text, record) => {
-    
+            return (
+              <span>
+                   
+              </span>
+            )
 
           },
+         
         },
         {
           title: '创建时间',
@@ -223,7 +224,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"未确认",
+          state:"未确认",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -240,7 +241,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -257,7 +258,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -274,7 +275,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -291,7 +292,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -308,7 +309,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -325,7 +326,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -342,7 +343,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -359,7 +360,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -376,7 +377,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -393,7 +394,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -410,7 +411,7 @@ class Info extends React.Component {
           city:"岳阳",
           store:"",
           address:"中山公园",
-          sta:"待接单",
+          state:"待接单",
           createtime:"2017-04-25 11:11:11",
           advisor:" ",
           engineer:"黄小琥"
@@ -474,7 +475,7 @@ class Info extends React.Component {
     }
 
     this.setState({ loading: true });
-    console.log(JSON.stringify(params))
+    // console.log(JSON.stringify(params))
     Http.post('queryListNews', params, callback => {
       // const callback = { "total": 167, "rows": [{ "limit": 10, "page": 1, "releaseNumber": 1, "orderName": null, "orderType": null, "id": 94, "labelId": null, "title": "晚间新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 4, "shareNumber": null, "browseNumber": 86, "commentNumber": 40, "contentType": 1, "previewPhone": null, "newsUrl": 'http://www.baidu.com', "releaseDate": "2018-03-08 15:40", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 95, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 5, "shareNumber": null, "browseNumber": 18, "commentNumber": 8, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:30", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 2, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 96, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 6, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 3, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 97, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 8, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 4, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 98, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 10, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:23", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 5, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 99, "labelId": null, "title": "标题字数过多展示测试测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 33, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 6, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 100, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 44, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 7, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 101, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 55, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 104, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 66, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 9, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 105, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1002, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 77, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 10, "createBy": 1 }] }
       const pagination = { ...this.state.pagination };
@@ -622,9 +623,7 @@ class Info extends React.Component {
     })
   }
 
-  /**
-   * 内容太多，跳转新增界面😂
-   */
+ 
   handleAdd = ({ item, key, keyPath }) => {
     let pathMap = { 1: './act/edit', 2: './news/edit' }
     this.goto(pathMap[key]);
