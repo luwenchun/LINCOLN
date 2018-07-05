@@ -16,7 +16,10 @@ import {
     Row, Col, Modal, message, TreeSelect
 } from 'antd';
 import RichText from '../../../components/RichText/RichText';
+// import RichText from '../../../components/RichText/UEditor';
 import Preview from '../../../components/Preview/index';
+import 'plyr/dist/plyr.css';
+import Plyr from 'plyr/dist/plyr';
 
 const TreeNode = TreeSelect.TreeNode;
 const FormItem = Form.Item;
@@ -25,6 +28,7 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 const orderChildren = [];
+const controls = ['play-large', 'play', 'current-time', 'volume', 'airplay', 'fullscreen'];
 
 message.config({
     top: 400,
@@ -153,11 +157,11 @@ class NewsEdit extends React.Component {
             previewImage: '',
             previewUrl: 'http://localhost:9900/fed/admin/device-support',
             fileList: [],
+            fileListVedio: [],
+            imgArr: [],
+            imgsFileList: {},
             formFieldValues: {
                 "contentType": 0,
-                // "labelName": "",
-                // "newsSummary": "",
-                // "previewPhone": "",
                 "status": 0,
                 "title": "",
                 "titleImage": "",
@@ -190,6 +194,10 @@ class NewsEdit extends React.Component {
 
 
     componentWillMount() {
+        document.addEventListener('DOMContentLoaded', () => {
+            const player = new Plyr('#player', { controls });
+        });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -206,59 +214,40 @@ class NewsEdit extends React.Component {
     }
 
     componentDidMount() {
-        this.addMobile()
+        this.addMobile(0)
     }
 
     init = () => {
-
         const { formFieldValues } = this.props
         const editDiff = {}
-
         editDiff['editType'] = Object.hasOwnProperty.call(formFieldValues, 'id') ? 'mod' : 'add'
-
         this.setState({ editDiff })
-
     }
 
-    removeMobile = (k) => {
+    removeMobile = (i) => {
         const { form } = this.props;
-        const keys = form.getFieldValue('keys');
-        if (keys.length === 1) {
+        const { imgArr, imgsFileList } = { ...this.state }
+        if (imgArr.length === 1) {
             return;
         }
 
-
-        const prevPhonesAsArray = [...this.state.previewPhonesAsArray]
-        prevPhonesAsArray.splice(k, 1)
+        imgArr.splice(i, 1)
+        delete imgsFileList['imgsFileList' + i]
 
         this.setState({
-            previewPhonesAsArray: [...prevPhonesAsArray]
-        }, () => {
-            console.log('removeMobile.index====', k, '===removeMobile.previewPhonesAsArray====', this.state.previewPhonesAsArray)
-            const newState = { previewPhone: this.state.previewPhonesAsArray.join(',') }
-            this.setState({
-                formFieldValues: { ...this.state.formFieldValues, ...newState }
-            }, () => {
-                console.log('this.state.formFieldValues====', this.state.formFieldValues)
-            })
+            imgsFileList,
+            imgArr,
         })
 
-
-        form.setFieldsValue({
-            keys: keys.filter(key => key !== k),
-        });
     }
 
-    addMobile = () => {
-
+    addMobile = (i) => {
         const { form } = this.props;
-        const keys = form.getFieldValue('keys');
-        const nextKeys = keys.concat(uuid);
+        const { imgArr } = { ...this.state }
         uuid++;
 
-        form.setFieldsValue({
-            keys: nextKeys,
-        });
+        imgArr[i] = { url: '', summary: '', status: '' };
+        this.setState({ imgArr });
     }
 
     normFile = (e) => {
@@ -275,14 +264,13 @@ class NewsEdit extends React.Component {
         let imgURLAsArr = ""
 
         if (status === 'done') {
-
             console.log('fileupload-done====', fileList)
             fileList.map((item, index) => {
-                console.info('item===', item['response']['data'])
+                if (item['response']['status'] == '302') {
+                    window.top.location.href = item['response']['location'];
+                }
                 imgURLAsArr = item['response']['data']
-
             })
-
 
             this.setState({
                 formFieldValues: { ...this.state.formFieldValues, ...{ titleImage: imgURLAsArr } }
@@ -291,9 +279,51 @@ class NewsEdit extends React.Component {
             })
 
         }
-
-
         this.setState({ fileList })
+    }
+    handleRemove() {
+        const { formFieldValues } = { ...this.state }
+        this.setState({
+            formFieldValues: { ...formFieldValues, titleImage: '' },
+            fileList: []
+        })
+    }
+
+    imgsRemove(i, file) {
+        const { imgsFileList, imgArr } = { ...this.state }
+        delete imgsFileList['imgsFileList' + 1]
+        imgArr[i]['url'] = '';
+        this.setState({ imgsFileList, imgArr })
+    }
+
+    imgsloadChange = (i, info) => {
+        debugger;
+        const { imgsFileList, imgArr } = { ...this.state }
+        const { fileList } = info
+        const status = info.file.status
+        let imgURLAsArr = ""
+        imgArr[i]['status'] = 'loading'
+        if (status === 'done') {
+            console.log('fileupload-done====', fileList)
+            fileList.map((item, index) => {
+                if (item['response']['status'] == '302') {
+                    window.top.location.href = item['response']['location'];
+                }
+                imgURLAsArr = item['response']['data']
+
+            })
+
+            imgArr[i]['url'] = imgURLAsArr;
+            this.setState({
+                imgArr
+            }, () => {
+                console.log('handleUploadChange===', this.state.imgArr)
+            })
+
+        }
+
+        imgsFileList['imgsFileList' + i] = fileList;
+        this.setState({ imgsFileList })
 
 
     }
@@ -359,25 +389,13 @@ class NewsEdit extends React.Component {
     }
 
     /**
-     * @description 可预览手机号变化时触发
+     * @description 图片备注
      */
-    onPreviewPhoneChange = (index = 0, event) => {
-        const target = event.target
-        const currentValue = target.value
-        const prevPhonesAsArray = [...this.state.previewPhonesAsArray]
-
-        prevPhonesAsArray[index] = currentValue
-        this.setState({
-            previewPhonesAsArray: [...prevPhonesAsArray]
-        }, () => {
-            console.log('onPreviewPhoneChange.index====', index, '===onPreviewPhoneChange.previewPhonesAsArray====', this.state.previewPhonesAsArray)
-            const newState = { previewPhone: this.state.previewPhonesAsArray.join(',') }
-            this.setState({
-                formFieldValues: { ...this.state.formFieldValues, ...newState }
-            }, () => {
-                console.log('this.state.formFieldValues====', this.state.formFieldValues)
-            })
-        })
+    onPreviewPhoneChange = (v, index) => {
+        debugger;
+        const { imgArr } = { ...this.state }
+        imgArr[index]['summary'] = v;
+        this.setState({ imgArr })
 
     }
 
@@ -414,7 +432,6 @@ class NewsEdit extends React.Component {
      */
 
     onRichChange = (activityContent) => {
-
         this.setState({
             formFieldValues: { ...this.state.formFieldValues, ...{ content: activityContent } }
         }, () => {
@@ -439,19 +456,54 @@ class NewsEdit extends React.Component {
      * @description 检查富文本，第三方链接及上传图片是否填写完整
      */
     checkVaildate = () => {
-        const { formFieldValues } = this.state
+        const { formFieldValues, imgArr } = { ...this.state }
         const { contentType } = formFieldValues
-        let result = true
+        let result = true, images = [];
+        if (contentType == 1) {
 
-        for (let k in formFieldValues) {
-            if (typeof formFieldValues[k] === 'string' && !formFieldValues[k].length) {
-                if (k === 'content') {
-                    result = formFieldValues[k].replace(/<[^>]+>/g, "").length
+        } else if (contentType == 3) {   // 图片验证
+            for (let i = 0, e; (e = imgArr[i]) != undefined; i++) {
+                if (!e.status.length) {
+
+                } else if (e['url'] && e['url'].length && e['summary'] && e['summary'].length) {
+                    // images.push(e['url'])
+                    // images.push(e['summary'])
+                    images.push({
+                        url: e['url'],
+                        summary: e['summary']
+                    })
                 } else {
-                    result = false
+                    return !1;
                 }
             }
+
+            if (!images.length) return !1
+            formFieldValues.content = JSON.stringify(images);
+        } else if (contentType == 4) {  // 视频验证
+
         }
+
+
+
+        for (let k in formFieldValues) {
+
+            if (typeof formFieldValues[k] === 'string' && !formFieldValues[k].length) {
+                if (k === 'content') {
+                    result = result.replace(/<[(p|\/p)^>]+>/g,"");
+                    result = result.replace(/\s+/g, "").length;
+                } else {
+                    return !1
+                }
+                // if (typeof formFieldValues[k] === 'string') {
+                //     let reg = /<([a-zA-Z0-9]+?)(?:\s+?[^>]*?)?>\s*?<\/\1>/ig;
+                //     formFieldValues[k] = formFieldValues[k].trim();
+                //     while (reg.test(formFieldValues[k])) {
+                //         result = formFieldValues[k].replace(reg, "").replace(/(\r\n)|(\n)/g, '');
+                //     }
+                //     result = result.replace(/\s+/g, "").length
+            }
+        }
+
         return result
     }
 
@@ -482,9 +534,9 @@ class NewsEdit extends React.Component {
             isSave: btnType === 'save' ? true : this.state.isSave,
             isRequest: true
         }, () => {
-            console.log(JSON.stringify(this.state.formFieldValues))
+            console.log(JSON.stringify('insertNews入参=============', this.state.formFieldValues))
             Http.post('insertNews', { ...this.state.formFieldValues }, (callback) => {
-                console.log('submit-callback=====', callback)
+                console.log('insertNews-callback=====', callback)
                 if (callback['success']) {
                     message.success('操作成功')
                     // history.go(0);
@@ -507,7 +559,6 @@ class NewsEdit extends React.Component {
             const message = '发布后用户将直接读到发布内容，是否确认发布？';
             this.setState({ message, messageShow: true, btnType })
         } else {
-            debugger;
             this.confirmMsg();
         }
 
@@ -543,16 +594,48 @@ class NewsEdit extends React.Component {
 
     cotrlNext() {
         const { contentType, title, userId } = { ...this.state.formFieldValues }
-        // if (!title.length) return message.error('请填写标题！');
-        // if (!userId) return message.error('请选择发布号！');
+        if (!title.length) return message.error('请填写标题！');
+        if (!userId) return message.error('请选择发布号！');
         if (!contentType) return message.error('请选择资讯模板！');
         this.setState({ next: contentType ? true : false })
+    }
+
+    vedioBeroeUpload(file, fileList) {
+        console.log(file)
+        console.log(fileList)
+        debugger;
+    }
+    vedioUploadChange(info) {
+        const { fileList } = info
+        const status = info.file.status
+        let imgURLAsArr = ""
+
+        if (status === 'done') {
+            fileList.map((item, index) => {
+                if (item['response']['status'] == '302') {
+                    window.top.location.href = item['response']['location'];
+                }
+                imgURLAsArr = item['response']['data']
+            })
+
+            this.setState({
+                formFieldValues: { ...this.state.formFieldValues, ...{ content: imgURLAsArr } }
+            }, () => {
+                console.log('handleUploadChange===', this.state.formFieldValues)
+            })
+        }
+        this.setState({ fileListVedio: fileList })
+
+    }
+
+    vedioRemove() {
+        this.setState({ fileListVedio: [] })
     }
 
     render() {
         const { onContentTypeChange, handlePreview, onPreviewPhoneChange, onInputChange, onRichChange, handleSubmit, } = this
         const { getFieldDecorator, getFieldValue, setFieldsValue } = this.props.form
-        const { previewVisible, previewImage, fileList, formFieldValues, richOpt, editDiff, hasValidate, next } = this.state
+        const { previewVisible, previewImage, fileList, imgArr, formFieldValues, richOpt, editDiff, hasValidate, next, fileListVedio } = this.state
         const { findOfficialUser } = { ...this.props }
         console.info('render-hasValidate---->', hasValidate.isContentValidate)
 
@@ -566,35 +649,41 @@ class NewsEdit extends React.Component {
                 <div className="ant-upload-text">添加</div>
             </div>
         );
-        getFieldDecorator('keys', { initialValue: [0] });
-        const keys = getFieldValue('keys');
-        console.log('keys===', keys)
+
 
         // 图片模板
         const ImgTemplate = (
             <div>
-                {keys.map((k, index) => {
+                {imgArr.map((k, index) => {
                     return (
                         <FormItem
                             {...formItemRichText}
-                            key={k}
+                            key={index}
                         >
-                            <Row gutter={24} style={{ border: '1px solid #ccc', padding: '5px 0', borderRadius: '5px',position:'relative' }}>
-                                <Col span={19}>
-                                
-                                    {getFieldDecorator(`names[${k}]`)(
-                                        <TextArea maxLength={30} autosize={{ minRows: 4, maxRows: 4 }} placeholder="图片描述" style={{ width: '100%', }} onChange={onPreviewPhoneChange.bind(this, k)} />
-                                    )}
+                            <Row gutter={24} style={{ border: '1px solid #ccc', padding: '5px 0', borderRadius: '5px', position: 'relative' }}>
+                                <Col span={5} >
+                                    <Upload
+                                        action={uploadUrl}
+                                        listType="picture-card"
+                                        multiple={false}
+                                        fileList={this.state.imgsFileList['imgsFileList' + index]}
+                                        onChange={this.imgsloadChange.bind(this, index)}
+                                        onRemove={this.imgsRemove.bind(this, index)}
+                                        showUploadList={{ showPreviewIcon: false, showRemoveIcon: true }}
+                                    >
+                                        {k['url'].length >= 1 || k['status'].length >= 1 ? null : uploadButton}
+                                    </Upload>
                                 </Col>
-                                <Col span={5} style={{ position: 'absolute' ,right:'5px', bottom:'5px'}}>
-                                    {keys.length > 0 ? (
-
-                                        <Button style={{ width: '100%' }}
+                                <Col span={19}>
+                                    {getFieldDecorator(`names[${index}]`)(
+                                        <TextArea defaultValue={k['summary']} maxLength={100} autosize={{ minRows: 3, maxRows: 3 }} placeholder="图片描述" style={{ width: '100%', }} onChange={e => onPreviewPhoneChange(e.target.value, index)} />
+                                    )}
+                                    {imgArr.length > 0 ? (
+                                        <Button style={{ width: '20%', float: 'right', marginTop: '5px' }}
                                             icon='delete'
-                                            disabled={index === 0}
-                                            onClick={() => this.removeMobile(k)}
+                                            disabled={index < imgArr.length - 1 || index === 0}
+                                            onClick={() => this.removeMobile(index)}
                                         >移除</Button>
-
                                     ) : null}
                                 </Col>
                             </Row>
@@ -602,7 +691,8 @@ class NewsEdit extends React.Component {
                     );
                 })}
                 <FormItem {...formItemRichText}>
-                    <Button type="dashed" onClick={this.addMobile} style={{ width: '100%' }}>
+                    <Button type="dashed" onClick={this.addMobile.bind(this, imgArr.length)} style={{ width: '100%' }}>
+                        {/* <Button type="dashed" disabled={imgArr.length >= 9} onClick={this.addMobile.bind(this, imgArr.length)} style={{ width: '100%' }}> */}
                         <Icon type="plus" /> 点击添加
                 </Button>
                 </FormItem>
@@ -618,7 +708,7 @@ class NewsEdit extends React.Component {
                         label="资讯标题"
                     >
                         {getFieldDecorator('title', {
-                            rules: [{ required: true, message: '请填写标题！' }],
+                            rules: [{ required: true, whitespace: true, message: '请填写标题！' }],
                         })(
                             <Input maxLength={100} onChange={onInputChange.bind(this, 'title')} />
                         )}
@@ -640,7 +730,6 @@ class NewsEdit extends React.Component {
                             <TreeSelect
                                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                                 placeholder="请选择"
-                                allowClear
                                 showSearch
                                 value={formFieldValues.userId}
                                 filterTreeNode={(i, t) => {
@@ -660,7 +749,7 @@ class NewsEdit extends React.Component {
                         )}
                     </FormItem>
 
-                    {next && contentType === 1
+                    {next && contentType != 2
                         ? <FormItem
                             {...formItemLayout}
                             label={<span className="required">主题图片</span>}
@@ -669,24 +758,25 @@ class NewsEdit extends React.Component {
                                 action={uploadUrl}
                                 listType="picture-card"
                                 multiple={false}
-                                supportServerRender={true}
-                                onPreview={this.handleUploadPreview}
-                                onChange={this.handleUploadChange}
+                                fileList={this.state.fileList}
+                                onChange={this.handleUploadChange.bind(this)}
+                                onRemove={this.handleRemove.bind(this)}
+                                showUploadList={{ showPreviewIcon: false, showRemoveIcon: true }}
                             >
                                 {fileList.length >= 1 ? null : uploadButton}
                             </Upload>
-                            <span style={{ color: 'red' }}>* 请设置图片宽高比例 290:180(像素)</span>
+                            <span style={{ color: 'red' }}>* 请设置图片宽高比例 350:180(像素)</span>
                             <div style={{ color: '#f5222d', display: hasValidate['isUploadValidate'] ? 'none' : 'block' }}>请添加主题图片！</div>
                         </FormItem>
                         : ""}
 
-                    {next && contentType === 1
+                    {next && (contentType == 1 || contentType == 3)
                         ? <FormItem
                             {...formItemLayout}
                             label="内容概要"
                         >
                             {getFieldDecorator('newsSummary', {
-                                rules: [{ required: true, whitespace: true, }],
+                                rules: [{ required: true, whitespace: true, message: '请选输入内容概要！' }],
                             })(
                                 <TextArea maxLength={30} autosize={{ minRows: 4, maxRows: 4 }} onChange={onInputChange.bind(this, 'newsSummary')} />
                             )}
@@ -704,6 +794,49 @@ class NewsEdit extends React.Component {
                             {/* <Radio name="contentType" value={2} checked={contentType === 2 ? true : false} onChange={onContentTypeChange}>第三方模块</Radio> */}
                         </div>
                     </FormItem>
+
+                    {next && contentType == 4
+                        ? <FormItem
+                            {...formItemLayout}
+                            // label={<span className="required"></span>}
+                            label={<span>上传视频</span>}
+                        >
+                            <Upload
+                                action={uploadUrl}
+                                listType="text"
+                                multiple={false}
+                                fileList={fileListVedio}
+                                beforeUpload={this.vedioBeroeUpload.bind(this)}
+                                onChange={this.vedioUploadChange.bind(this)}
+                                onRemove={this.vedioRemove.bind(this)}
+                                showUploadList={{ showPreviewIcon: false, showRemoveIcon: true }}
+                            >
+                                {fileListVedio.length >= 1
+                                    ? null
+                                    : <Button>
+                                        <Icon type="upload" /> 选择视频
+                                    </Button>}
+
+                            </Upload>
+                            <span style={{ color: 'red' }}>* 请上传50MB以内的视频文件！</span>
+                            {}
+                            <div>
+                                <video style={{ width: '100%' }} controls crossorigin playsinline poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
+                                    <source src={formFieldValues.content} type="video/mp4" />
+                                </video>
+                            </div>
+
+                            {getFieldDecorator('newsSummary', {
+                                rules: [{ required: true, whitespace: true, }],
+                            })(
+                                <TextArea maxLength={30} autosize={{ minRows: 4, maxRows: 4 }} onChange={onInputChange.bind(this, 'newsSummary')} />
+                            )}
+                        </FormItem>
+                        : ""}
+
+
+
+
 
                     {/* 富文本 */}
                     {next && contentType === 1
@@ -762,47 +895,6 @@ class NewsEdit extends React.Component {
 
 
 
-                    {/* <FormItem
-            {...formItemLayout}
-            label={<span className="required">主题图片</span>}
-          >
-            <Upload
-              action={uploadUrl}
-              listType="picture-card"
-              multiple={true}
-              supportServerRender={true}
-              onPreview={this.handleUploadPreview}
-              onChange={this.handleUploadChange}
-            >
-              {fileList.length >= 1 ? null : uploadButton}
-            </Upload>
-            <span style={{ color: 'red' }}>* 请设置图片宽高比例 290:180(像素)</span>
-            <div style={{ color: '#f5222d', display: hasValidate['isUploadValidate'] ? 'none' : 'block' }}>请添加主题图片！</div>
-          </FormItem>
-
-
-          <FormItem
-            {...formItemLayout}
-            label="可预览手机号"
-          >
-            {formItems}
-            <Button type="dashed" onClick={this.addMobile} style={{ width: '100%' }}>
-              <Icon type="plus" /> 点击添加
-              </Button>
-          </FormItem>
-
-          <FormItem
-            {...formItemLayout}
-            label="内容概要"
-          >
-            {getFieldDecorator('newsSummary', {
-              rules: [{ required: false, whitespace: true, }],
-            })(
-              <TextArea autosize={{ minRows: 4, maxRows: 4 }} onChange={onInputChange.bind(this, 'newsSummary')} />
-            )}
-          </FormItem> */}
-
-
                     <div>
                         {/* <div dangerouslySetInnerHTML={{ __html: this.genQRCodeWithUrl() }}></div> */}
                     </div>
@@ -810,11 +902,11 @@ class NewsEdit extends React.Component {
 
                     <div style={{ textAlign: "right" }}>
                         <Button type="default" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8, float: "left", display: next ? 'inline-block' : 'none' }} onClick={this.goBack.bind(this)}>上一步</Button>
-                        <Button type="default" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8, display: next ? 'inline-block' : 'none' }} onClick={() => { this.props.onMsg() }}>取消</Button>
+                        <Button type="default" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8 }} onClick={() => { this.props.onMsg() }}>取消</Button>
                         <Button type="primary" disabled={this.state.isRequest} htmlType="button" icon="save" style={{ marginLeft: 8, display: next ? 'inline-block' : 'none' }} onClick={handleSubmit.bind(this, 'save')}>保存</Button>
                         <Button type="default" disabled={this.state.isRequest} htmlType="button" icon="search" style={{ marginLeft: 8, display: next ? 'inline-block' : 'none' }} onClick={this.cotrlPreview.bind(this)}>预览</Button>
                         <Button type="primary" disabled={this.state.isRequest} htmlType="button" icon="export" style={{ marginLeft: 8, display: next ? 'inline-block' : 'none' }} onClick={handleSubmit.bind(this, 'pub')}>发布</Button>
-                        <Button type="default" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8, display: !next ? 'inline-block' : 'none' }} onClick={() => { this.props.cancel(false) }}>取消</Button>
+                        {/* <Button type="default" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8, display: !next ? 'inline-block' : 'none' }} onClick={() => { this.props.cancel(false) }}>取消</Button> */}
                         <Button type="primary" disabled={this.state.isRequest} htmlType="button" style={{ marginLeft: 8, display: !next ? 'inline-block' : 'none' }} onClick={this.cotrlNext.bind(this)}>下一步</Button>
                     </div>
                 </Form>
@@ -828,7 +920,7 @@ class NewsEdit extends React.Component {
                         onOk={() => { this.setState({ drShow: false }) }}
                         footer={null}
                     >
-                        <Preview data={this.state.formFieldValues} />
+                        <Preview type={formFieldValues.contentType == 1 ? 'Default' : (formFieldValues.contentType == 3 ? 'NewsImg' : (formFieldValues.contentType == 4 ? 'NewsVedio' : ''))} data={formFieldValues} />
                     </Modal>
                     : ""
                 }

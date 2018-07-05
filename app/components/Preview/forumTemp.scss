@@ -1,0 +1,229 @@
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+.feto::-webkit-scrollbar  
+{  
+    width: 0px;  
+    height: 0px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.feto::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.3);  
+    border-radius: 0px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.feto::-webkit-scrollbar-thumb  
+{  
+    border-radius: 0px;  
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,.3);  
+    background-color: #C0C0C0;  
+}  
+
+.feto{
+    margin: 0 auto;
+    overflow-y: scroll;
+    .address{
+        padding: 0 10px 0;
+        p{
+            padding: 5px 0;
+            margin-bottom: 1px;
+            img{
+                width: .65rem;
+                margin-right: 15px;
+                vertical-align: middle;
+            }
+            span{
+                font-size: .6rem;
+                font-family: PingFangTC-Regular;
+                vertical-align: middle;
+            }
+        }
+    }
+    
+    .ftit{
+        padding:15px 20px 9px 20px;
+        vertical-align: middle;
+        span{
+            display: inline-block;
+            width: 13%;
+            height: 30px;
+            float: left;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-image: url('./images/jhtie.png');
+            color: white;
+            line-height: 30px;
+            font-size: 12px;
+            padding: 1px 0 0 3px;
+        }
+        h2{
+            display: inline-block;
+            font-size: .72rem;
+            font-family: PingFangSC-Medium;
+            line-height: 1.2rem;
+            font-weight: 600;
+            padding: 0!important;
+        }
+    }
+
+    .ftitT{
+        padding: 0 20px 0 ;
+        span{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        img{
+            width: 100%;
+            float: left;
+            margin-top: 2px;
+        }
+        .mass{
+            width: .68rem;
+            margin-right: 5px;
+        }
+
+    }
+
+    .user{
+        padding:19px  20px;
+        >div:first-of-type{
+            border-radius: 15px;
+            width: 38px;
+            height: 38px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        >span{
+            font-family: PingFangTC-Regular;
+            font-size: .65rem;
+            color: black;
+        }
+        .add{
+            float: right;
+            
+            img{
+                width:12px;
+                vertical-align: middle;
+                margin-right:3px;
+            }
+            span{
+                vertical-align: middle;
+                font-size: 13px;
+                font-family: PingFangTC-Regular;
+                color: black;
+            }
+        }
+        img{
+            width: 100%;
+        }
+    }
+
+    .fContent{
+        line-height: 100%;
+        padding-bottom: 10px;
+        padding: 0 20px;
+        >img{
+            width: 100%;
+            margin-bottom: 12px;
+            border-radius: 2px;
+        }
+        >div,>p{
+            line-height: 27px;
+            word-break: break-word;
+            word-wrap: break-word;
+            margin: 0;
+            margin-bottom: 12px;
+            font-family: PingFangSC-Regular;
+            color: #7E7E7E;
+            font-size: 14px;
+        }
+    }
+    .fContent::before,.fContent::after{
+        display: block;
+        content: "";
+        clear: both;
+    }
+
+    .fLine{
+        height: .5px;
+        background: #EBEBEB;
+        margin: 0 15px; 
+    }
+
+    .audioBgc{
+        width: 100px;
+        height: 30px;
+        border: .5px solid #ccc;
+        border-radius: 100px;
+        padding: 4px 12px;
+        margin-bottom: 10px;
+        img{
+            height: 80%;
+        }
+        span{
+            float: right;
+        }
+    }
+
+
+}
+
+.feto >div{
+    overflow-x: hidden;
+}
+
+
+.am-slider-rail{
+    position: absolute;
+    width: 100%;
+    background-color: #ddd;
+    height: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    left: 0;
+}
+
+.am-slider-step {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    left: 0;
+}
+
+
+.am-slider-handle {
+    position: absolute;
+    margin-left: -18px;
+    margin-top: -14px;
+    width: 30px;
+    height: 30px;
+    line-height: 26px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #108ee9;
+    background-color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+
+}
+
+.shade{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.3);
+    z-index: 9;
+}   
+.white{
+    >div{
+        background: white!important;
+    }
+}

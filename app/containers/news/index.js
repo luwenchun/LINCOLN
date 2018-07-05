@@ -15,6 +15,7 @@ import PushNews from './compontents/push';
 import EditNews from './compontents/edit';
 import ClipboardJS from 'clipboard/dist/clipboard.min.js';
 import Preview from '../../components/Preview/index';
+import FilterColumn from '../../components/FilterTable';
 message.config({
   top: 400,
   duration: 2,
@@ -44,7 +45,6 @@ Http.setMutiApi(apis);
 const formItemLayout = {
   labelCol: {
     xs: { span: 22 },
-
     sm: { span: 6 },
   },
   wrapperCol: {
@@ -61,6 +61,7 @@ class Info extends React.Component {
 
     this.state = {
       expand: false,
+      filterWidth: 0,
       columns: [
         {
           title: '排序',
@@ -72,32 +73,38 @@ class Info extends React.Component {
         {
           title: '发布时间',
           dataIndex: 'releaseDate',
-          width: 180,
+
           key: 'releaseDate',
           // fixed: 'left',
         },
         {
           title: '创建人',
           dataIndex: 'releaseName',
-          width: 110,
+
           key: 'releaseName',
           // fixed: 'left',
         },
         {
           title: '标题',
           dataIndex: 'title',
-          width: 250,
+
           key: 'title',
+          render: (text, record) => {
+            return (
+              <span onClick={() => { this.setState({ action: 'edit', currentData: record, eitShow: true }) }}>
+                {text && text.length > 12 ? text.slice(0, 12) + '……' : text}
+              </span>
+            )
+          }
         },
         {
           title: '发布号',
           dataIndex: 'name',
-          width: 180,
+
           key: 'name',
         },
         {
           title: '资讯情况',
-          width: 180,
           key: 'hshsh',
           render: (text, record) => {
             return (
@@ -115,7 +122,7 @@ class Info extends React.Component {
         {
           title: '预览',
           dataIndex: 'prev',
-          width: 60,
+
           key: 'prev',
           render: (text, record) => {
             return (
@@ -139,11 +146,14 @@ class Info extends React.Component {
         {
           title: '是否显示',
           dataIndex: 'isShow',
-          width: 80,
+
           key: 'isShow',
           render: (text, record) => {
             return (
-              <span>{text ? '是' : '否'}</span>
+              <span>
+                {text ? '是' : '否'}
+              </span>
+
             )
           }
         },
@@ -198,7 +208,7 @@ class Info extends React.Component {
           console.log('ddd', current)
           console.log('aaaaa', size)
         },
-        showQuickJumper: true,
+        showQuickJumper: true
       },
       formFieldValues: {
         "activityType": "",
@@ -250,26 +260,22 @@ class Info extends React.Component {
 
     this.setState({ loading: true });
     console.log(JSON.stringify(params))
-    Http.post('queryListNews', params, callback => {
-      // const callback = { "total": 167, "rows": [{ "limit": 10, "page": 1, "releaseNumber": 1, "orderName": null, "orderType": null, "id": 94, "labelId": null, "title": "晚间新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 4, "shareNumber": null, "browseNumber": 86, "commentNumber": 40, "contentType": 1, "previewPhone": null, "newsUrl": 'http://www.baidu.com', "releaseDate": "2018-03-08 15:40", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 95, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 5, "shareNumber": null, "browseNumber": 18, "commentNumber": 8, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:30", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 2, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 96, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 6, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 3, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 97, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 8, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 4, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 98, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 10, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:23", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 5, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 99, "labelId": null, "title": "标题字数过多展示测试测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 33, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 6, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 100, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 44, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 7, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 101, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 55, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 104, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 66, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 9, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 105, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1002, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 77, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 10, "createBy": 1 }] }
-      const pagination = { ...this.state.pagination };
-      if (callback && callback['rows']) {
-        pagination.total = callback['total'] || 0;
-        let dataList = callback['rows'];
-        dataList.forEach((item, index) => {
-          item.title = item.title && item.title.length > 12 ? item.title.slice(0, 12) + '……' : item.title;
-        })
-        this.setState({
-          loading: false,
-          dataList,
-          pagination
-        })
-      } else if (callback && callback['status']) {
-        debugger;
-        location.href = callback['location'] + "?_t=" + (new Date()).getMilliseconds();
-      }
-
-    })
+    // Http.post('queryListNews', params, callback => {
+    const callback = { "total": 167, "rows": [{ "limit": 10, "page": 1, "releaseNumber": 1, "orderName": null, "orderType": null, "id": 94, "labelId": null, "title": "晚间新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1001, "content": "[{url:'http://www.fhisahf.com/2m.jpg',summary:'a删繁就简扫'}]", "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 4, "shareNumber": null, "browseNumber": 86, "commentNumber": 40, "contentType": 3, "previewPhone": null, "newsUrl": 'http://www.baidu.com', "releaseDate": "2018-03-08 15:40", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 95, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 5, "shareNumber": null, "browseNumber": 18, "commentNumber": 8, "contentType": 1, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:30", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 2, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 96, "labelId": null, "title": "卖车喽!", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 6, "commentNumber": 0, "contentType": 4, "previewPhone": null, "newsUrl": "", "releaseDate": "2018-04-25 14:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 3, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 97, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 8, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 4, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 98, "labelId": null, "title": "新闻测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 10, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:23", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 5, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 99, "labelId": null, "title": "标题字数过多展示测试测试", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 33, "commentNumber": 2, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-09 03:31", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 6, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 100, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 44, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 7, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 101, "labelId": null, "title": "今天测试下发布新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 55, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": null, "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 8, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 104, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1004, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 0, "shareNumber": null, "browseNumber": 66, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 9, "createBy": 1 }, { "limit": 10, "page": 1, "orderName": null, "orderType": null, "id": 105, "labelId": null, "title": "新闻新闻", "titleImage": null, "startDate": null, "endDate": null, "status": 1002, "content": null, "newsSummary": null, "thirdPartLink": null, "dealerCode": null, "dealerName": null, "praiseNumber": 1, "shareNumber": null, "browseNumber": 77, "commentNumber": 0, "contentType": null, "previewPhone": null, "newsUrl": null, "releaseDate": "2018-03-13 07:36", "labelName": null, "isRecommend": 0, "userName": null, "photo_url": null, "userId": null, "isShow": null, "sort": 10, "createBy": 1 }] }
+    const pagination = { ...this.state.pagination };
+    if (callback && callback['rows']) {
+      pagination.total = callback['total'] || 0;
+      let dataList = callback['rows'];
+      this.setState({
+        loading: false,
+        dataList,
+        pagination
+      })
+    } else if (callback && callback['status']) {
+      debugger;
+      window.top.location.href = callback['location'] + "?_t=" + (new Date()).getMilliseconds();
+    }
+    // })
   }
 
 
@@ -295,86 +301,6 @@ class Info extends React.Component {
         this.setState({ findOfficialUser: res })
       }
     })
-
-    // this.setState({
-    //   findOfficialUser: [...
-    //     {
-    //       "id": 123,
-    //       "saicUserId": 321,
-    //       "name": "开发人员",
-    //       "mobilePhone": "13024172788",
-    //       "password": null,
-    //       "photoUrl": "",
-    //       "nickName": "",
-    //       "accountStatus": "ACTIVATED",
-    //       "createDate": 1524801465000,
-    //       "updateDate": 1524805016000,
-    //       "userType": 3,
-    //       "email": null,
-    //       "lastErrTs": null,
-    //       "isUsernameUpdatable": null,
-    //       "laiwang": null,
-    //       "registerSource": null,
-    //       "loginTs": null,
-    //       "photoId": null,
-    //       "lastLoginTs": null,
-    //       "lowerName": null,
-    //       "wangwang": null,
-    //       "errCount": null,
-    //       "qq": null
-    //     },
-    //   {
-    //     "id": 321,
-    //     "saicUserId": 123,
-    //     "name": "开发人员",
-    //     "mobilePhone": "13777898281",
-    //     "password": null,
-    //     "photoUrl": "",
-    //     "nickName": "",
-    //     "accountStatus": "ACTIVATED",
-    //     "createDate": 1524808245000,
-    //     "updateDate": 1524812216000,
-    //     "userType": 3,
-    //     "email": null,
-    //     "lastErrTs": null,
-    //     "isUsernameUpdatable": null,
-    //     "laiwang": null,
-    //     "registerSource": null,
-    //     "loginTs": null,
-    //     "photoId": null,
-    //     "lastLoginTs": null,
-    //     "lowerName": null,
-    //     "wangwang": null,
-    //     "errCount": null,
-    //     "qq": null
-    //   },
-    //   {
-    //     "id": 2323,
-    //     "saicUserId": 323,
-    //     "name": "开发人员表",
-    //     "mobilePhone": "17712654474",
-    //     "password": null,
-    //     "photoUrl": "https://carapptest.gtmc.com.cn/fs01/20180309/test",
-    //     "nickName": "",
-    //     "accountStatus": "ACTIVATED",
-    //     "createDate": 1524797805000,
-    //     "updateDate": 1524797134000,
-    //     "userType": 3,
-    //     "email": null,
-    //     "lastErrTs": null,
-    //     "isUsernameUpdatable": null,
-    //     "laiwang": null,
-    //     "registerSource": null,
-    //     "loginTs": null,
-    //     "photoId": null,
-    //     "lastLoginTs": null,
-    //     "lowerName": null,
-    //     "wangwang": null,
-    //     "errCount": null,
-    //     "qq": null
-    //   }
-    //   ]
-    // })
 
   }
 
@@ -412,7 +338,18 @@ class Info extends React.Component {
     this.props.form.resetFields();
     this.setState({
       selectedDate: null,
-      formFieldValues: { page: 1, limit: 10, status: "", isShow: "" }
+      formFieldValues: { page: 1, limit: 10, status: "", isShow: "" },
+      pagination: {
+        size: 'small',
+        showSizeChanger: true,
+        onShowSizeChange: (current, size) => {
+          console.log('ddd', current)
+          console.log('aaaaa', size)
+        },
+        showQuickJumper: true,
+        current: 1,
+      },
+
     }, () => {
       console.log('reset.formFieldValues=====', this.state.formFieldValues)
     })
@@ -441,11 +378,7 @@ class Info extends React.Component {
     const _this = this;
     let dataList = JSON.stringify(this.state.dataList);
     dataList = JSON.parse(dataList);
-    // dataList.forEach((item, index) => {
-    //   if (record.id == item.id) {
-    //     dataList.splice(index, 1)
-    //   }
-    // })
+
 
     // 1004 新闻资讯
     // 1003 报名活动
@@ -523,7 +456,7 @@ class Info extends React.Component {
   render() {
     const { onDealerCodeChange, onInputChange, onPublishDateChange, onAction, handleAdd } = this
     const { getFieldDecorator } = this.props.form;
-    const { dataList, columns, formFieldValues, findOfficialUser } = this.state;
+    const { dataList, columns, formFieldValues, findOfficialUser, previewData } = this.state;
     return (
       <div className="wrap" style={{ 'padding': '5px' }}>
         <Helmet>
@@ -559,7 +492,7 @@ class Info extends React.Component {
             </Col>
             <Col span={8}>
               <FormItem {...formItemLayout} label={`创建人`} style={{ width: '100%' }}>
-                <Input value={formFieldValues.name} onChange={onInputChange.bind(this, 'name')} />
+                <Input value={formFieldValues.releaseName} onChange={onInputChange.bind(this, 'releaseName')} />
               </FormItem>
             </Col>
 
@@ -623,6 +556,10 @@ class Info extends React.Component {
           </Row>
         </Form>
 
+        <div>
+          <FilterColumn columns={this.state.columns} onChange={(columns, filterWidth) => { this.setState({ columns, filterWidth }) }} />
+        </div>
+
         <Table columns={columns}
           size="small"
           rowKey={record => Math.random(4) + 'uuid'}
@@ -630,7 +567,7 @@ class Info extends React.Component {
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange}
-          scroll={{ x: 1400 }}
+          scroll={{ x: 1460 - this.state.filterWidth }}
         />
 
         {/* 新增 */}
@@ -690,7 +627,10 @@ class Info extends React.Component {
             onOk={() => { this.setState({ drShow: false }) }}
             footer={null}
           >
-            <Preview form={this.props.form} data={this.state.previewData} />
+            <Preview
+              type={previewData.contentType == 1 ? 'Default' : (previewData.contentType == 3 ? 'NewsImg' : (previewData.contentType == 4 ? 'NewsVedio' : ''))}
+              form={this.props.form}
+              data={previewData} />
           </Modal>
           : ""
         }
